@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { useGame } from '@/context/GameContext';
 import { fmt }     from '@/lib/utils';
-import { getCPS }  from '@/lib/gameLogic';
+import { PRODUCERS } from '@/lib/constants';
 import OrbParticles from './OrbParticles';
 import { cn } from '@/lib/utils';
 
@@ -172,10 +172,10 @@ export default function ChillOrb() {
           return (
             <div className="space-y-1.5">
               {owned.map(([id, p]) => {
-                const def = (import('@/lib/constants') as unknown as { PRODUCERS: { id: string; name: string; emoji: string; baseCPS: number }[] }).PRODUCERS?.find(d => d.id === id);
+                const def = PRODUCERS.find(d => d.id === id);
                 return (
                   <div key={id} className="flex items-center justify-between text-xs">
-                    <span className="font-mono text-white/50">{id}</span>
+                    <span className="font-mono text-white/50">{def?.name ?? id}</span>
                     <span className="font-orbitron text-neon-cyan">×{p.count}</span>
                   </div>
                 );
