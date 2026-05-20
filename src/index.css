@@ -62,7 +62,8 @@
 
   html, body, #root {
     height: 100%;
-    overflow: hidden;           /* game never scrolls at root */
+    height: 100dvh;
+    overflow: hidden;
   }
 
   body {
