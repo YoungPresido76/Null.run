@@ -1,6 +1,6 @@
 import { GameProvider } from './context/GameContext';
 import { useFirebase }  from './hooks/useFirebase';
-import PhoneAuth        from './components/game/modals/PhoneAuth';
+import AuthScreen from './components/game/modals/PhoneAuth';
 import GameLayout       from './components/game/layout/GameLayout';
 import './index.css';
 
@@ -20,7 +20,7 @@ function AuthGate() {
     );
   }
 
-  if (!user) return <PhoneAuth />;
+  if (!user) return <AuthScreen />;
   return <GameLayout />;
 }
 
