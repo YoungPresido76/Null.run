@@ -184,7 +184,6 @@ export default function Leaderboard() {
   };
   const entries = dataMap[activeTab];
   const top3    = entries.slice(0, 3);
-  const rest    = entries.slice(3);
   const tabCfg  = TABS.find(t => t.id === activeTab)!;
 
   // Find my position
@@ -242,9 +241,6 @@ export default function Leaderboard() {
           {/* Podium */}
           {top3.length >= 2 && (
             <Podium entries={entries} tab={activeTab} />
-          )}
-
-          {/* My rank callout (if outside top 10) */}
           {myEntry && myEntry.rank > 10 && (
             <div className="px-4 mb-3">
               <div className="glass rounded-xl px-4 py-2.5 border border-neon-cyan/30 flex items-center gap-3">
