@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useRef } from 'react';
 import type { GameState } from '../types/game';
 import { defaultGameState } from '../lib/constants';
 import { getCPS, checkAchievements } from '../lib/gameLogic';
