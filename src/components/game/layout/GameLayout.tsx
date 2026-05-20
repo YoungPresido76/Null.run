@@ -57,7 +57,7 @@ export default function GameLayout() {
   const [activeTab, setActiveTab] = useState<TabId>('core');
 
   return (
-    <div className="relative flex flex-col h-screen overflow-hidden">
+    <div className="relative flex flex-col overflow-hidden" style={{ height: '100dvh' }}>
       <GameBg />
 
       {/* Header */}
