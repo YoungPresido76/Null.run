@@ -241,6 +241,8 @@ export default function Leaderboard() {
           {/* Podium */}
           {top3.length >= 2 && (
             <Podium entries={entries} tab={activeTab} />
+          )}
+
           {myEntry && myEntry.rank > 10 && (
             <div className="px-4 mb-3">
               <div className="glass rounded-xl px-4 py-2.5 border border-neon-cyan/30 flex items-center gap-3">
