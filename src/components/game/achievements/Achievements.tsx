@@ -1,6 +1,7 @@
 import { useGame } from '@/context/GameContext';
 import { ACHIEVEMENT_DEFS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { GameIcon } from '@/lib/icons';
 
 export default function Achievements() {
   const { state } = useGame();
@@ -42,7 +43,8 @@ export default function Achievements() {
                 key={def.id}
                 className="glass rounded-xl p-3 border border-neon-cyan/20 bg-neon-cyan/5"
               >
-                <div className="text-2xl mb-1.5">{def.emoji}</div>
+                <div className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center mb-1.5">
+                  <GameIcon name="game-icons:achievement" size={22} className="text-neon-cyan" /></div>
                 <p className="font-orbitron text-[11px] font-bold text-white/90 leading-tight mb-0.5">
                   {def.name}
                 </p>
@@ -71,7 +73,8 @@ export default function Achievements() {
                 key={def.id}
                 className="glass rounded-xl p-3 border border-white/5 opacity-50"
               >
-                <div className="text-2xl mb-1.5 grayscale opacity-40">{def.emoji}</div>
+                <div className="w-10 h-10 rounded-xl glass border border-white/5 flex items-center justify-center mb-1.5 opacity-40">
+                  <GameIcon name="game-icons:padlock" size={22} className="text-white/30" /></div>
                 <p className="font-orbitron text-[11px] font-bold text-white/40 leading-tight mb-0.5">
                   {def.name}
                 </p>
