@@ -10,7 +10,7 @@ import Market        from '../market/Market';
 import Social        from '../social/Social';
 import SettingsModal from '../modals/SettingsModal';
 import { cn }        from '@/lib/utils';
-import { useGame }   from '@/context/GameContext';
+import { GameIcon, NAV_ICONS } from '@/lib/icons';
 
 export type TabId = 'core' | 'produce' | 'rank' | 'social' | 'market' | 'stake' | 'hq' | 'achieve';
 
@@ -69,18 +69,18 @@ function SideActions({ onMenu, onSettings }: { onMenu: () => void; onSettings: (
   return (
     <div className="fixed right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-40">
       {[
-        { icon: '⚙️', label: 'Settings', action: onSettings },
-        { icon: '☰',  label: 'Menu',     action: onMenu },
+        { icon: NAV_ICONS.settings, label: 'Settings', action: onSettings },
+        { icon: NAV_ICONS.menu,     label: 'Menu',     action: onMenu },
       ].map(btn => (
         <button key={btn.label} onClick={btn.action}
-          className="w-11 h-11 rounded-2xl flex items-center justify-center text-lg transition-all active:scale-90"
+          className="w-11 h-11 rounded-2xl flex items-center justify-center transition-all active:scale-90"
           style={{
             background: 'rgba(2,6,20,0.85)',
             backdropFilter: 'blur(16px)',
             border: '1px solid rgba(0,243,255,0.2)',
             boxShadow: '0 4px 24px rgba(0,0,0,0.5), 0 0 12px rgba(0,243,255,0.1)',
           }}>
-          {btn.icon}
+          <GameIcon name={btn.icon} size={18} className="text-neon-cyan opacity-80" />
         </button>
       ))}
     </div>
@@ -88,11 +88,11 @@ function SideActions({ onMenu, onSettings }: { onMenu: () => void; onSettings: (
 }
 
 // ── Hamburger drawer ──────────────────────────────────────────────
-const DRAWER_TABS: { id: TabId; label: string; emoji: string; desc: string }[] = [
-  { id: 'market',  label: 'MARKET',       emoji: '🎴', desc: 'NFTs · Artefacts · Trade'      },
-  { id: 'stake',   label: 'STAKE',        emoji: '📈', desc: 'Stake Chills & Diamonds'        },
-  { id: 'hq',      label: 'NULL HQ',      emoji: '🏗️', desc: 'Build your headquarters'       },
-  { id: 'achieve', label: 'ACHIEVEMENTS', emoji: '🏅', desc: 'Track your milestones'          },
+const DRAWER_TABS: { id: TabId; label: string; icon: string; desc: string }[] = [
+  { id: 'market',  label: 'MARKET',       icon: NAV_ICONS.market,  desc: 'NFTs · Artefacts · Trade'   },
+  { id: 'stake',   label: 'STAKE',        icon: NAV_ICONS.stake,   desc: 'Stake Chills & Diamonds'     },
+  { id: 'hq',      label: 'NULL HQ',      icon: NAV_ICONS.hq,      desc: 'Build your headquarters'    },
+  { id: 'achieve', label: 'ACHIEVEMENTS', icon: NAV_ICONS.achieve,  desc: 'Track your milestones'      },
 ];
 
 function MenuDrawer({
@@ -143,7 +143,8 @@ function MenuDrawer({
                   ? 'border-neon-cyan/40 bg-neon-cyan/10'
                   : 'border-white/5 bg-white/3 hover:border-white/15 hover:bg-white/5',
               )}>
-              <span className="text-2xl">{t.emoji}</span>
+              <GameIcon name={t.icon} size={24}
+                className={active === t.id ? 'text-neon-cyan' : 'text-white/40'} />
               <div>
                 <p className={cn('font-orbitron text-xs font-bold', active === t.id ? 'neon-cyan' : 'text-white/80')}>
                   {t.label}
@@ -162,11 +163,11 @@ function MenuDrawer({
 }
 
 // ── Floating bottom nav ───────────────────────────────────────────
-const BOTTOM_TABS: { id: TabId; label: string; emoji: string }[] = [
-  { id: 'core',    label: 'CORE',   emoji: '∅'  },
-  { id: 'produce', label: 'SHOP',   emoji: '⚡' },
-  { id: 'rank',    label: 'RANK',   emoji: '🏆' },
-  { id: 'social',  label: 'SOCIAL', emoji: '👥' },
+const BOTTOM_TABS: { id: TabId; label: string; icon: string }[] = [
+  { id: 'core',    label: 'CORE',   icon: NAV_ICONS.core    },
+  { id: 'produce', label: 'SHOP',   icon: NAV_ICONS.produce },
+  { id: 'rank',    label: 'RANK',   icon: NAV_ICONS.rank    },
+  { id: 'social',  label: 'SOCIAL', icon: NAV_ICONS.social  },
 ];
 
 function FloatingNav({ active, onChange }: { active: TabId; onChange: (t: TabId) => void }) {
@@ -185,17 +186,19 @@ function FloatingNav({ active, onChange }: { active: TabId; onChange: (t: TabId)
           return (
             <button key={tab.id} onClick={() => onChange(tab.id)}
               className={cn(
-                'relative flex flex-col items-center justify-center gap-1 px-5 py-2 rounded-2xl transition-all duration-200 active:scale-90',
-                isActive ? 'bg-white/8' : 'opacity-45 hover:opacity-70',
+                'relative flex flex-col items-center justify-center gap-1.5 px-5 py-2 rounded-2xl transition-all duration-200 active:scale-90',
+                isActive ? 'bg-white/8' : 'opacity-40 hover:opacity-65',
               )}>
-              {/* Active pill indicator */}
               {isActive && (
                 <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-neon-cyan"
                   style={{ boxShadow: '0 0 8px rgba(0,243,255,1)' }} />
               )}
-              <span className={cn('text-xl leading-none', isActive && tab.id === 'core' ? 'neon-cyan' : '')}>
-                {tab.emoji}
-              </span>
+              <GameIcon
+                name={tab.icon}
+                size={22}
+                className={isActive ? 'text-neon-cyan' : 'text-white/60'}
+                style={isActive ? { filter: 'drop-shadow(0 0 6px rgba(0,243,255,0.8))' } : undefined}
+              />
               <span className={cn(
                 'font-orbitron text-[8px] font-bold tracking-widest leading-none',
                 isActive ? 'neon-cyan' : 'text-white/40',
