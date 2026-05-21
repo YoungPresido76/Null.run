@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useGame } from '@/context/GameContext';
 import { PRODUCERS, ARTEFACTS } from '@/lib/constants';
-import { producerCost, getCPS } from '@/lib/gameLogic';
+import { producerCost } from '@/lib/gameLogic';
 import { fmt, cn } from '@/lib/utils';
+import { GameIcon, PRODUCER_ICONS, ARTEFACT_ICONS } from '@/lib/icons';
 
 function ProducerCard({ def }: { def: typeof PRODUCERS[0] }) {
   const { state, dispatch } = useGame();
@@ -19,8 +20,8 @@ function ProducerCard({ def }: { def: typeof PRODUCERS[0] }) {
       <div className="flex items-center gap-3">
         {/* Icon + count */}
         <div className="relative shrink-0">
-          <div className="w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center text-2xl">
-            {def.emoji}
+          <div className="w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center">
+            <GameIcon name={PRODUCER_ICONS[def.id] ?? 'game-icons:cog'} size={26} className="text-neon-cyan opacity-80" />
           </div>
           {owned > 0 && (
             <div className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-neon-cyan text-void-bg font-orbitron text-[9px] font-black flex items-center justify-center">
@@ -71,8 +72,8 @@ function ArtefactCard({ def }: { def: typeof ARTEFACTS[0] }) {
       canAfford ? 'border-white/15 hover:border-neon-purple/40' : 'border-white/5 opacity-50',
     )}>
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center text-2xl shrink-0">
-          {def.emoji}
+        <div className="w-12 h-12 rounded-xl glass border border-white/10 flex items-center justify-center shrink-0">
+          <GameIcon name={ARTEFACT_ICONS[def.id] ?? 'game-icons:gem-pendant'} size={26} className="text-neon-purple opacity-80" />
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-orbitron text-sm font-bold text-white/90">{def.name}</p>
