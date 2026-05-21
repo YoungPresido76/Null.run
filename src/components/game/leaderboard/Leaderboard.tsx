@@ -1,28 +1,29 @@
 import { useState } from 'react';
 import { useLeaderboard, type LBTab } from '@/hooks/useLeaderboard';
-import { fmt } from '@/lib/utils';
-import { cn } from '@/lib/utils';
+import { fmt, cn } from '@/lib/utils';
 import type { LeaderboardEntry } from '@/types/firebase';
+import { GameIcon, CURRENCY_ICONS } from '@/lib/icons';
+
+const MEDAL_ICONS = ['game-icons:laurel-crown', 'game-icons:trophy', 'game-icons:medal'];
+const MEDAL_COLOR = ['text-yellow-400', 'text-slate-300', 'text-amber-600'];
 
 // ── Sub-tab config ────────────────────────────────────────────────
-const TABS: { id: LBTab; label: string; emoji: string; color: string; shadowColor: string }[] = [
-  { id: 'chills',   label: 'CHILLS',   emoji: '❄️', color: 'text-neon-cyan',    shadowColor: 'rgba(0,243,255,0.4)' },
-  { id: 'diamonds', label: 'DIAMONDS', emoji: '💎', color: 'text-neon-magenta', shadowColor: 'rgba(255,0,170,0.4)' },
-  { id: 'trophies', label: 'TROPHIES', emoji: '🏆', color: 'text-yellow-400',   shadowColor: 'rgba(250,204,21,0.4)' },
+const TABS: { id: LBTab; label: string; icon: string; color: string; shadowColor: string }[] = [
+  { id: 'chills',   label: 'CHILLS',   icon: CURRENCY_ICONS.chills,   color: 'text-neon-cyan',    shadowColor: 'rgba(0,243,255,0.4)'  },
+  { id: 'diamonds', label: 'DIAMONDS', icon: CURRENCY_ICONS.diamonds, color: 'text-neon-magenta', shadowColor: 'rgba(255,0,170,0.4)'  },
+  { id: 'trophies', label: 'TROPHIES', icon: 'game-icons:trophy',     color: 'text-yellow-400',   shadowColor: 'rgba(250,204,21,0.4)' },
 ];
 
 // ── Value formatter per tab ───────────────────────────────────────
 function getValue(entry: LeaderboardEntry, tab: LBTab): string {
-  if (tab === 'chills')   return `${fmt(entry.totalChills)} ❄️`;
-  if (tab === 'diamonds') return `${fmt(entry.diamonds)} 💎`;
-  return `${entry.achCount ?? 0} 🏅`;
+  if (tab === 'chills')   return `${fmt(entry.totalChills)}`;
+  if (tab === 'diamonds') return `${fmt(entry.diamonds)}`;
+  return `${entry.achCount ?? 0}`;
 }
 
 // ── Top 3 podium ─────────────────────────────────────────────────
-const PODIUM_ORDER = [1, 0, 2]; // visual order: 2nd, 1st, 3rd
+const PODIUM_ORDER = [1, 0, 2];
 const PODIUM_H    = ['h-16', 'h-24', 'h-12'];
-const PODIUM_SIZE = ['text-3xl', 'text-4xl', 'text-2xl'];
-const MEDALS      = ['🥇', '🥈', '🥉'];
 const PODIUM_GLOW = [
   'shadow-[0_0_20px_rgba(0,243,255,0.4)] border-neon-cyan/40',
   'shadow-[0_0_30px_rgba(255,215,0,0.5)] border-yellow-400/50',
@@ -43,9 +44,11 @@ function Podium({ entries, tab }: { entries: LeaderboardEntry[]; tab: LBTab }) {
         return (
           <div key={dataIdx} className="flex-1 flex flex-col items-center gap-1.5">
             {/* Medal badge */}
-            <span className={cn('leading-none', PODIUM_SIZE[pos])}>
-              {MEDALS[pos]}
-            </span>
+            <GameIcon
+              name={MEDAL_ICONS[pos]}
+              size={pos === 0 ? 36 : pos === 1 ? 28 : 24}
+              className={MEDAL_COLOR[pos]}
+            />
 
             {/* Avatar circle */}
             <div className={cn(
@@ -103,12 +106,11 @@ function RankRow({ entry, tab, isMe }: { entry: LeaderboardEntry; tab: LBTab; is
         ? 'border-neon-cyan/50 bg-neon-cyan/5 shadow-[0_0_12px_rgba(0,243,255,0.15)]'
         : 'border-white/5 hover:border-white/10',
     )}>
-      {/* Rank badge */}
-      <span className={cn(
-        'w-6 text-center font-orbitron text-sm font-bold shrink-0',
-        entry.rank <= 3 ? 'text-yellow-400' : 'text-white/20',
-      )}>
-        {entry.rank <= 3 ? MEDALS[entry.rank - 1] : `#${entry.rank}`}
+      <span className={cn('w-6 text-center shrink-0', entry.rank <= 3 ? MEDAL_COLOR[entry.rank - 1] : 'text-white/20')}>
+        {entry.rank <= 3
+          ? <GameIcon name={MEDAL_ICONS[entry.rank - 1]} size={18} />
+          : <span className="font-orbitron text-sm font-bold">#{entry.rank}</span>
+        }
       </span>
 
       {/* Avatar */}
@@ -208,15 +210,15 @@ export default function Leaderboard() {
             key={t.id}
             onClick={() => setActiveTab(t.id)}
             className={cn(
-              'flex-1 py-2.5 rounded-xl font-orbitron text-[10px] font-bold tracking-wider',
+              'flex-1 py-2.5 rounded-xl font-orbitron text-[10px] font-bold tracking-wider flex items-center justify-center gap-1.5',
               'border transition-all duration-150 active:scale-95',
               activeTab === t.id
-                ? `border-current bg-white/5 ${t.color} shadow-[0_0_10px_var(--shadow)]`
+                ? `border-current bg-white/5 ${t.color}`
                 : 'border-white/10 bg-white/5 text-white/30 hover:text-white/50',
             )}
-            style={activeTab === t.id ? { '--shadow': t.shadowColor } as React.CSSProperties : undefined}
           >
-            {t.emoji} {t.label}
+            <GameIcon name={t.icon} size={13} />
+            {t.label}
           </button>
         ))}
       </div>
