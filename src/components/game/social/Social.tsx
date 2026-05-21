@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useGame }     from '@/context/GameContext';
 import { useFirebase } from '@/hooks/useFirebase';
 import { fmt, cn }     from '@/lib/utils';
+import { GameIcon, SOCIAL_ICONS } from '@/lib/icons';
 import {
   getFirestore, collection, getDocs, query, where, limit,
-  doc, setDoc, serverTimestamp, getDoc, updateDoc,
+  doc, setDoc, serverTimestamp, updateDoc,
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
@@ -408,10 +409,10 @@ function RaidsTab() {
 export default function Social() {
   const [tab, setTab] = useState<SocialTab>('gifts');
 
-  const TABS: { id: SocialTab; label: string; emoji: string }[] = [
-    { id: 'gifts',   label: 'GIFTS',   emoji: '🎁' },
-    { id: 'friends', label: 'FRIENDS', emoji: '👥' },
-    { id: 'raids',   label: 'RAIDS',   emoji: '⚔️' },
+  const TABS: { id: SocialTab; label: string; icon: string }[] = [
+    { id: 'gifts',   label: 'GIFTS',   icon: SOCIAL_ICONS.gift    },
+    { id: 'friends', label: 'FRIENDS', icon: SOCIAL_ICONS.friends },
+    { id: 'raids',   label: 'RAIDS',   icon: SOCIAL_ICONS.raid    },
   ];
 
   return (
@@ -425,12 +426,13 @@ export default function Social() {
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className={cn(
-              'flex-1 py-2.5 rounded-xl font-orbitron text-[10px] font-bold border transition-all',
+              'flex-1 py-2.5 rounded-xl font-orbitron text-[10px] font-bold border transition-all flex items-center justify-center gap-1.5',
               tab === t.id
                 ? 'border-neon-magenta/50 text-neon-magenta bg-neon-magenta/10'
                 : 'border-white/10 text-white/30',
             )}>
-            {t.emoji} {t.label}
+            <GameIcon name={t.icon} size={13} />
+            {t.label}
           </button>
         ))}
       </div>
