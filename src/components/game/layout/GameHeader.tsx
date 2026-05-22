@@ -49,7 +49,7 @@ export default function GameHeader({ onSettingsOpen }: Props) {
           </div>
           <p className="font-display font-black text-2xl chill-number leading-none neon-cyan">{fmt(state.chills)}</p>
           <div className="flex items-center gap-1 mt-0.5">
-            <GameIcon name="lucide:activity" size={8} style={{ color: 'var(--void-primary-500)', opacity: 0.5 }} />
+            <GameIcon name="ui:activity" size={8} style={{ color: 'var(--void-primary-500)', opacity: 0.5 }} />
             <span className="font-game text-xs" style={{ color: 'rgba(0,243,255,0.5)' }}>{fmt(cps)}/s</span>
           </div>
         </div>
