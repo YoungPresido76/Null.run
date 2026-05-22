@@ -1,7 +1,7 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState } from 'react';
 import { useGame } from '@/context/GameContext';
 import { fmt }     from '@/lib/utils';
-import { getCPS }  from '@/lib/gameLogic';
+import { PRODUCERS } from '@/lib/constants';
 import OrbParticles from './OrbParticles';
 import { cn } from '@/lib/utils';
 
@@ -56,7 +56,7 @@ export default function ChillOrb() {
         {floats.map(f => (
           <div
             key={f.id}
-            className="absolute font-orbitron font-black text-sm pointer-events-none z-40 animate-float-up neon-cyan whitespace-nowrap"
+            className="absolute font-display font-black text-sm pointer-events-none z-40 whitespace-nowrap neon-cyan"
             style={{ left: f.x, top: f.y, transform: 'translateX(-50%)' }}
           >
             {f.value}
@@ -131,7 +131,7 @@ export default function ChillOrb() {
             <span className="font-mono text-[10px] tracking-widest" style={{ color: 'rgba(0,243,255,0.5)' }}>
               SYS::ACTIVE
             </span>
-            <span className="font-orbitron font-black text-2xl neon-cyan" style={{ letterSpacing: '0.05em' }}>
+            <span className="font-display font-black text-2xl neon-cyan" style={{ letterSpacing: '0.05em' }}>
               CORE
             </span>
             <div style={{ height: 1, width: '60%', background: 'rgba(0,243,255,0.4)', margin: '3px 0' }} />
@@ -151,32 +151,31 @@ export default function ChillOrb() {
       </div>
 
       {/* Owned producers mini list */}
-      <div className="glass rounded-2xl p-4 mt-6 w-full max-w-sm mx-4">
-        <h3 className="font-orbitron text-sm neon-purple mb-3 flex items-center gap-2">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-          YOUR PRODUCERS
-        </h3>
+      <div className="void-card-glass mx-4 mt-4 mb-2 p-4">
+      {/* Producer list */}
+      <div className="void-card-glass mx-4 mt-4 mb-2 p-4">
+        <p className="void-stat-label mb-3 flex items-center gap-2">
+          <span style={{ color: 'var(--nv-purple)' }}>⬡</span> YOUR PRODUCERS
+        </p>
         {(() => {
-          const owned = Object.entries(state.producers)
-            .filter(([, p]) => p.count > 0);
+          const owned = Object.entries(state.producers).filter(([, p]) => p.count > 0);
           if (owned.length === 0) {
             return (
-              <p className="text-white/30 text-center text-xs py-3 font-mono">
-                No producers yet · visit PRODUCE tab
+              <p className="font-game text-xs text-center py-2" style={{ color: 'var(--void-text-muted)' }}>
+                No producers yet · visit SHOP tab
               </p>
             );
           }
           return (
             <div className="space-y-1.5">
               {owned.map(([id, p]) => {
-                const def = (import('@/lib/constants') as unknown as { PRODUCERS: { id: string; name: string; emoji: string; baseCPS: number }[] }).PRODUCERS?.find(d => d.id === id);
+                const def = PRODUCERS.find(d => d.id === id);
                 return (
-                  <div key={id} className="flex items-center justify-between text-xs">
-                    <span className="font-mono text-white/50">{id}</span>
-                    <span className="font-orbitron text-neon-cyan">×{p.count}</span>
+                  <div key={id} className="flex items-center justify-between">
+                    <span className="font-game text-xs" style={{ color: 'var(--void-text-secondary)' }}>
+                      {def?.name ?? id}
+                    </span>
+                    <span className="void-badge void-badge-primary" style={{ fontSize: '0.65rem' }}>×{p.count}</span>
                   </div>
                 );
               })}
