@@ -515,6 +515,7 @@
   .void-badge-primary { background: rgba(0,243,255,0.12); color: var(--void-primary-400); border: 1px solid rgba(0,243,255,0.2); }
   .void-badge-accent  { background: rgba(255,0,170,0.12); color: var(--void-accent-400);  border: 1px solid rgba(255,0,170,0.2); }
   .void-badge-purple  { background: rgba(157,0,255,0.12); color: #c084fc;                  border: 1px solid rgba(157,0,255,0.2); }
+  .void-badge-info    { background: rgba(0,243,255,0.12); color: #67e8f9;                  border: 1px solid rgba(0,243,255,0.2); }
   .void-badge-success { background: rgba(34,197,94,0.12); color: var(--void-success-400);  border: 1px solid rgba(34,197,94,0.2); }
   .void-badge-warning { background: rgba(245,158,11,0.12);color: var(--void-warning-400);  border: 1px solid rgba(245,158,11,0.2); }
   .void-badge-error   { background: rgba(239,68,68,0.12); color: var(--void-error-400);    border: 1px solid rgba(239,68,68,0.2); }
