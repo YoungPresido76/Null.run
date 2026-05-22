@@ -4,7 +4,7 @@ import { fmt, cn } from '@/lib/utils';
 import type { LeaderboardEntry } from '@/types/firebase';
 import { GameIcon, CURRENCY_ICONS } from '@/lib/icons';
 
-const MEDAL_ICONS  = ['game-icons:laurel-crown', 'game-icons:trophy', 'game-icons:medal'];
+const MEDAL_ICONS  = ['nav:rank', 'nav:rank', 'nav:achieve'];
 const MEDAL_COLORS = ['#fbbf24', '#d1d5db', '#b45309'];
 const PODIUM_ORDER = [1, 0, 2];
 const PODIUM_H     = ['h-14', 'h-20', 'h-10'];
@@ -12,7 +12,7 @@ const PODIUM_H     = ['h-14', 'h-20', 'h-10'];
 const TABS: { id: LBTab; label: string; icon: string; color: string }[] = [
   { id: 'chills',   label: 'CHILLS',   icon: CURRENCY_ICONS.chills,   color: 'void-btn-glow'   },
   { id: 'diamonds', label: 'DIAMONDS', icon: CURRENCY_ICONS.diamonds, color: 'void-btn-accent' },
-  { id: 'trophies', label: 'TROPHIES', icon: 'game-icons:trophy',     color: 'void-btn-gradient' },
+  { id: 'trophies', label: 'TROPHIES', icon: 'nav:rank',     color: 'void-btn-gradient' },
 ];
 
 function getValue(entry: LeaderboardEntry, tab: LBTab): string {
@@ -133,7 +133,7 @@ export default function Leaderboard() {
         <div className="px-4 my-3">
           <div className="void-card-glass p-3 flex items-start gap-3"
             style={{ borderColor: 'rgba(251,191,36,0.2)' }}>
-            <GameIcon name="game-icons:podium" size={18} style={{ color: '#fbbf24', flexShrink: 0 }} />
+            <GameIcon name="game:podium" size={18} style={{ color: '#fbbf24', flexShrink: 0 }} />
             <div>
               <p className="font-display text-xs font-bold" style={{ color: '#fbbf24' }}>DAILY REWARD ACTIVE</p>
               <p className="font-game text-[9px] mt-0.5" style={{ color: 'var(--void-text-secondary)' }}>
@@ -146,7 +146,7 @@ export default function Leaderboard() {
 
       {loading ? <LoadingSkeleton /> : entries.length === 0 ? (
         <div className="text-center py-12 px-4">
-          <GameIcon name="game-icons:radar-dish" size={44} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
+          <GameIcon name="prod:pulse_station" size={44} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
           <p className="font-display text-sm" style={{ color: 'var(--void-text-tertiary)' }}>NO SIGNAL YET</p>
           <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>Be the first to appear here</p>
         </div>
