@@ -217,9 +217,9 @@ function CommunityPotPanel() {
 export default function StakePanel() {
   const [tab, setTab] = useState<StakeTab>('chills');
   const TABS: { id: StakeTab; label: string; icon: string }[] = [
-    { id: 'chills',   label: 'CHILLS',   icon: 'game-icons:ice-cube' },
-    { id: 'diamonds', label: 'DIAMONDS', icon: 'game-icons:diamond'  },
-    { id: 'pot',      label: 'POT',      icon: 'game-icons:cauldron' },
+    { id: 'chills',   label: 'CHILLS',   icon: 'cur:chills' },
+    { id: 'diamonds', label: 'DIAMONDS', icon: 'cur:diamonds'  },
+    { id: 'pot',      label: 'POT',      icon: 'game:cauldron' },
   ];
 
   return (
