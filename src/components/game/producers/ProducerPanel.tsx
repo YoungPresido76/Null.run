@@ -78,7 +78,7 @@ function ArtefactCard({ def }: { def: typeof ARTEFACTS[0] }) {
     if (!canAfford) { toast.warning('Not enough Diamonds', `Need ${def.cost} 💎`); return; }
     dispatch({ type: 'SPEND_DIAMONDS', amount: def.cost });
     dispatch({ type: 'UNLOCK_ARTEFACT', id: def.id });
-    toast.success(`${def.name} acquired`, def.description);
+    toast.success(`${def.name} acquired`, def.bonus);
   }
 
   return (
@@ -86,11 +86,11 @@ function ArtefactCard({ def }: { def: typeof ARTEFACTS[0] }) {
       <div className="void-card-body flex items-center gap-3">
         <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
           style={{ background: 'linear-gradient(135deg, rgba(157,0,255,0.2), rgba(255,0,170,0.1))', border: '1px solid rgba(157,0,255,0.25)' }}>
-          <GameIcon name={ARTEFACT_ICONS[def.id] ?? 'game-icons:gem-pendant'} size={22} style={{ color: '#c084fc', opacity: 0.85 }} />
+          <GameIcon name={ARTEFACT_ICONS[def.id] ?? 'art:singularity_gem'} size={22} style={{ color: '#c084fc', opacity: 0.85 }} />
         </div>
         <div className="flex-1 min-w-0">
           <p className="void-card-title text-sm">{def.name}</p>
-          <span className="void-badge void-badge-purple" style={{ padding: '2px 6px', fontSize: '0.6rem', marginTop: 4, display: 'inline-flex' }}>{def.description}</span>
+          <span className="void-badge void-badge-purple" style={{ padding: '2px 6px', fontSize: '0.6rem', marginTop: 4, display: 'inline-flex' }}>{def.bonus}</span>
         </div>
         {owned ? (
           <span className="void-badge void-badge-success">OWNED</span>
@@ -141,7 +141,7 @@ export default function ProducerPanel() {
         <button onClick={() => setShowArtefacts(v => !v)}
           className="void-btn void-btn-ghost void-btn-full void-btn-md mb-2 justify-between">
           <span className="flex items-center gap-2">
-            <GameIcon name="game-icons:gem-pendant" size={14} />
+            <GameIcon name="art:singularity_gem" size={14} />
             ARTEFACTS
           </span>
           <span style={{ fontSize: '0.7rem', opacity: 0.5 }}>{showArtefacts ? '▲ HIDE' : '▼ SHOW'}</span>
