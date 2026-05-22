@@ -78,7 +78,7 @@ function ArtefactCard({ def }: { def: typeof ARTEFACTS[0] }) {
     if (!canAfford) { toast.warning('Not enough Diamonds', `Need ${def.cost} 💎`); return; }
     dispatch({ type: 'SPEND_DIAMONDS', amount: def.cost });
     dispatch({ type: 'UNLOCK_ARTEFACT', id: def.id });
-    toast.success(`${def.name} acquired`, def.description);
+    toast.success(`${def.name} acquired`, def.bonus);
   }
 
   return (
@@ -90,7 +90,7 @@ function ArtefactCard({ def }: { def: typeof ARTEFACTS[0] }) {
         </div>
         <div className="flex-1 min-w-0">
           <p className="void-card-title text-sm">{def.name}</p>
-          <span className="void-badge void-badge-purple" style={{ padding: '2px 6px', fontSize: '0.6rem', marginTop: 4, display: 'inline-flex' }}>{def.description}</span>
+          <span className="void-badge void-badge-purple" style={{ padding: '2px 6px', fontSize: '0.6rem', marginTop: 4, display: 'inline-flex' }}>{def.bonus}</span>
         </div>
         {owned ? (
           <span className="void-badge void-badge-success">OWNED</span>
