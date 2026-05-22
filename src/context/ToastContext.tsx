@@ -29,13 +29,13 @@ const Ctx = createContext<ToastCtx | null>(null);
 
 // ── Config per type ───────────────────────────────────────────────
 const TYPE_CONFIG: Record<ToastType, { icon: string; border: string; iconClass: string }> = {
-  success:     { icon: 'lucide:check-circle-2',          border: 'border-l-[3px] border-l-green-500',    iconClass: 'text-green-400'    },
-  error:       { icon: 'lucide:x-circle',                border: 'border-l-[3px] border-l-red-500',      iconClass: 'text-red-400'      },
-  warning:     { icon: 'lucide:alert-triangle',          border: 'border-l-[3px] border-l-yellow-500',   iconClass: 'text-yellow-400'   },
-  info:        { icon: 'lucide:info',                    border: 'border-l-[3px] border-l-blue-500',     iconClass: 'text-blue-400'     },
-  achievement: { icon: 'game-icons:achievement',         border: 'border-l-[3px] border-l-yellow-400',   iconClass: 'text-yellow-300'   },
-  raid:        { icon: 'game-icons:crossed-swords',      border: 'border-l-[3px] border-l-red-400',      iconClass: 'text-red-300'      },
-  gift:        { icon: 'game-icons:gift',                border: 'border-l-[3px] border-l-neon-magenta', iconClass: 'text-pink-300'     },
+  success:     { icon: 'ui:check',          border: 'border-l-[3px] border-l-green-500',    iconClass: 'text-green-400'    },
+  error:       { icon: 'ui:error',                border: 'border-l-[3px] border-l-red-500',      iconClass: 'text-red-400'      },
+  warning:     { icon: 'ui:warning',          border: 'border-l-[3px] border-l-yellow-500',   iconClass: 'text-yellow-400'   },
+  info:        { icon: 'ui:info',                    border: 'border-l-[3px] border-l-blue-500',     iconClass: 'text-blue-400'     },
+  achievement: { icon: 'game:achieve',         border: 'border-l-[3px] border-l-yellow-400',   iconClass: 'text-yellow-300'   },
+  raid:        { icon: 'soc:raid',      border: 'border-l-[3px] border-l-red-400',      iconClass: 'text-red-300'      },
+  gift:        { icon: 'soc:gift',                border: 'border-l-[3px] border-l-neon-magenta', iconClass: 'text-pink-300'     },
 };
 
 // ── Single toast item ─────────────────────────────────────────────
@@ -69,7 +69,7 @@ function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
         onClick={() => onRemove(toast.id)}
         className="shrink-0 text-white/25 hover:text-white/70 transition-colors"
       >
-        <Icon icon="lucide:x" width={14} />
+        <Icon icon="nav:close" width={14} />
       </button>
     </div>
   );
