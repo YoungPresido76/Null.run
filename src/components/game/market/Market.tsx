@@ -1,97 +1,81 @@
 import { useState, useEffect } from 'react';
-import { useGame }     from '@/context/GameContext';
+import { useGame }  from '@/context/GameContext';
+import { useToast } from '@/context/ToastContext';
 import { fmt, fmtTime, cn } from '@/lib/utils';
-import type { NFT }    from '@/types/game';
+import { GameIcon } from '@/lib/icons';
+import type { NFT } from '@/types/game';
 
 type MarketTab = 'mint' | 'collection' | 'marketplace';
 
 const MINT_COST_DIAMONDS = 50;
 const MINT_COST_CHILLS   = 100_000;
-const MINT_DURATION      = 5.5 * 3600 * 1000; // 5.5 hours
+const MINT_DURATION      = 5.5 * 3600 * 1000;
 
-const RARITY_WEIGHTS = { Common: 70, Rare: 20, Epic: 15, Legendary: 10 } as const;
-
-const NFT_POOL: Omit<NFT, 'id' | 'mintedAt'>[] = [
-  // Common
-  { name: 'Void Pixel #1',    rarity: 'Common',    emoji: '🔷', bonus: '+2% CPS',    cpsBoost: 0.02 },
-  { name: 'Neon Glyph #2',    rarity: 'Common',    emoji: '💠', bonus: '+2% CPS',    cpsBoost: 0.02 },
-  { name: 'Static Rune #3',   rarity: 'Common',    emoji: '🔹', bonus: '+2% CPS',    cpsBoost: 0.02 },
-  { name: 'Chill Shard #4',   rarity: 'Common',    emoji: '❄️', bonus: '+3% CPS',    cpsBoost: 0.03 },
-  { name: 'Pulse Echo #5',    rarity: 'Common',    emoji: '〰️', bonus: '+3% CPS',    cpsBoost: 0.03 },
-  // Rare
-  { name: 'Emblem Rare',      rarity: 'Rare',      emoji: '🌀', bonus: '+8% CPS',    cpsBoost: 0.08 },
-  { name: 'Void Signal',      rarity: 'Rare',      emoji: '📡', bonus: '+7% CPS',    cpsBoost: 0.07 },
-  { name: 'Neon Crest',       rarity: 'Rare',      emoji: '🏵️', bonus: '+9% CPS',    cpsBoost: 0.09 },
-  // Epic
-  { name: 'Epic Emblem',      rarity: 'Epic',      emoji: '⚡', bonus: '+15% CPS',   cpsBoost: 0.15 },
-  { name: 'Null Fragment',    rarity: 'Epic',      emoji: '🔮', bonus: '+18% CPS',   cpsBoost: 0.18 },
-  // Legendary
-  { name: 'Presido Legend',   rarity: 'Legendary', emoji: '👑', bonus: '+35% CPS',   cpsBoost: 0.35 },
-  { name: 'Null Genesis',     rarity: 'Legendary', emoji: '🌌', bonus: '+40% CPS',   cpsBoost: 0.40 },
+const RARITY_WEIGHTS = { Common: 70, Rare: 20, Epic: 15, Legendary: 10 };
+const NFT_POOL: Omit<NFT,'id'|'mintedAt'>[] = [
+  { name:'Void Pixel #1',    rarity:'Common',    emoji:'🔷', bonus:'+2% CPS',   cpsBoost:0.02 },
+  { name:'Neon Glyph #2',    rarity:'Common',    emoji:'💠', bonus:'+2% CPS',   cpsBoost:0.02 },
+  { name:'Static Rune #3',   rarity:'Common',    emoji:'🔹', bonus:'+3% CPS',   cpsBoost:0.03 },
+  { name:'Chill Shard #4',   rarity:'Common',    emoji:'❄️', bonus:'+3% CPS',   cpsBoost:0.03 },
+  { name:'Emblem Rare',      rarity:'Rare',      emoji:'🌀', bonus:'+8% CPS',   cpsBoost:0.08 },
+  { name:'Void Signal',      rarity:'Rare',      emoji:'📡', bonus:'+7% CPS',   cpsBoost:0.07 },
+  { name:'Neon Crest',       rarity:'Rare',      emoji:'🏵️', bonus:'+9% CPS',   cpsBoost:0.09 },
+  { name:'Epic Emblem',      rarity:'Epic',      emoji:'⚡', bonus:'+15% CPS',  cpsBoost:0.15 },
+  { name:'Null Fragment',    rarity:'Epic',      emoji:'🔮', bonus:'+18% CPS',  cpsBoost:0.18 },
+  { name:'Presido Legend',   rarity:'Legendary', emoji:'👑', bonus:'+35% CPS',  cpsBoost:0.35 },
+  { name:'Null Genesis',     rarity:'Legendary', emoji:'🌌', bonus:'+40% CPS',  cpsBoost:0.40 },
 ];
 
-const RARITY_COLOR: Record<NFT['rarity'], string> = {
-  Common:    'text-white/60',
-  Rare:      'text-neon-cyan',
-  Epic:      'text-neon-magenta',
-  Legendary: 'text-yellow-400',
+const RARITY_BADGE: Record<NFT['rarity'], string> = {
+  Common:    'void-badge-primary',
+  Rare:      'void-badge-info',
+  Epic:      'void-badge-accent',
+  Legendary: 'void-badge-warning',
 };
-const RARITY_BORDER: Record<NFT['rarity'], string> = {
-  Common:    'border-white/10',
-  Rare:      'border-neon-cyan/30',
-  Epic:      'border-neon-magenta/30',
-  Legendary: 'border-yellow-400/40',
+const RARITY_ICON: Record<NFT['rarity'], string> = {
+  Common:    'game-icons:gem-necklace',
+  Rare:      'game-icons:crystal-wand',
+  Epic:      'game-icons:lightning-trio',
+  Legendary: 'game-icons:holy-grail',
 };
 
-function pickNFT(): Omit<NFT, 'id' | 'mintedAt'> {
+function pickNFT(): Omit<NFT,'id'|'mintedAt'> {
   const roll = Math.random() * 100;
   let pool: typeof NFT_POOL;
   if      (roll < RARITY_WEIGHTS.Legendary) pool = NFT_POOL.filter(n => n.rarity === 'Legendary');
   else if (roll < RARITY_WEIGHTS.Legendary + RARITY_WEIGHTS.Epic) pool = NFT_POOL.filter(n => n.rarity === 'Epic');
   else if (roll < RARITY_WEIGHTS.Legendary + RARITY_WEIGHTS.Epic + RARITY_WEIGHTS.Rare) pool = NFT_POOL.filter(n => n.rarity === 'Rare');
-  else     pool = NFT_POOL.filter(n => n.rarity === 'Common');
+  else pool = NFT_POOL.filter(n => n.rarity === 'Common');
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// ── Mint tab ──────────────────────────────────────────────────────
 function MintTab() {
   const { state, dispatch } = useGame();
-
-  const [mintStart, setMintStart] = useState<number | null>(() => {
-    const v = localStorage.getItem('nv_mint_start');
-    return v ? parseInt(v) : null;
+  const toast = useToast();
+  const [mintStart, setMintStart] = useState<number|null>(() => {
+    const v = localStorage.getItem('nv_mint_start'); return v ? parseInt(v) : null;
   });
-  const [timeLeft,  setTimeLeft]  = useState(0);
-  const [claimed,   setClaimed]   = useState<NFT | null>(null);
-
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [claimed,  setClaimed]  = useState<NFT|null>(null);
   const isMinting = !!mintStart;
-  const isDone    = isMinting && Date.now() - mintStart >= MINT_DURATION;
+  const isDone    = isMinting && Date.now() - mintStart! >= MINT_DURATION;
 
   useEffect(() => {
     if (!isMinting) return;
-    const id = setInterval(() => {
-      const elapsed = Date.now() - mintStart!;
-      setTimeLeft(Math.max(0, MINT_DURATION - elapsed));
-    }, 1000);
+    const id = setInterval(() => setTimeLeft(Math.max(0, MINT_DURATION - (Date.now() - mintStart!))), 1000);
     setTimeLeft(Math.max(0, MINT_DURATION - (Date.now() - mintStart!)));
     return () => clearInterval(id);
   }, [mintStart, isMinting]);
 
   function startMint() {
-    if (state.diamonds < MINT_COST_DIAMONDS) return;
-    if (state.chills < MINT_COST_CHILLS) return;
+    if (state.diamonds < MINT_COST_DIAMONDS) { toast.error('Not enough Diamonds', `Need ${MINT_COST_DIAMONDS} 💎`); return; }
+    if (state.chills < MINT_COST_CHILLS)     { toast.error('Not enough Chills',   `Need ${fmt(MINT_COST_CHILLS)} ❄️`); return; }
     dispatch({ type: 'SPEND_DIAMONDS', amount: MINT_COST_DIAMONDS });
     dispatch({ type: 'SPEND_CHILLS',   amount: MINT_COST_CHILLS });
     const now = Date.now();
     setMintStart(now);
     localStorage.setItem('nv_mint_start', String(now));
-  }
-
-  function cancelMint() {
-    dispatch({ type: 'ADD_DIAMONDS', amount: MINT_COST_DIAMONDS });
-    dispatch({ type: 'ADD_CHILLS',   amount: MINT_COST_CHILLS });
-    setMintStart(null);
-    localStorage.removeItem('nv_mint_start');
+    toast.info('Minting started!', `Ready in ${fmtTime(MINT_DURATION)}`);
   }
 
   function claimNFT() {
@@ -102,106 +86,89 @@ function MintTab() {
     setClaimed(full);
     setMintStart(null);
     localStorage.removeItem('nv_mint_start');
+    toast.achievement(`${full.rarity} NFT claimed!`, `${full.name} · ${full.bonus}`);
   }
 
-  const canMint = !isMinting
-    && state.diamonds >= MINT_COST_DIAMONDS
-    && state.chills   >= MINT_COST_CHILLS;
+  function cancelMint() {
+    dispatch({ type: 'ADD_DIAMONDS', amount: MINT_COST_DIAMONDS });
+    dispatch({ type: 'ADD_CHILLS',   amount: MINT_COST_CHILLS });
+    setMintStart(null);
+    localStorage.removeItem('nv_mint_start');
+    toast.info('Mint cancelled', 'Costs refunded');
+  }
+
+  const canMint = !isMinting && state.diamonds >= MINT_COST_DIAMONDS && state.chills >= MINT_COST_CHILLS;
 
   return (
     <div className="space-y-4">
-      {/* Claimed reveal */}
       {claimed && (
-        <div className={cn(
-          'glass rounded-xl p-5 border text-center',
-          RARITY_BORDER[claimed.rarity],
-        )}>
-          <p className={cn('font-mono text-[10px] tracking-widest mb-1', RARITY_COLOR[claimed.rarity])}>
-            NFT CLAIMED · {claimed.rarity.toUpperCase()}
+        <div className={cn('void-card-glass p-5 text-center relative prism-corner-accent')}>
+          <p className={cn('void-badge mb-2 mx-auto', RARITY_BADGE[claimed.rarity])}>
+            {claimed.rarity.toUpperCase()} NFT CLAIMED
           </p>
-          <div className="text-5xl my-3">{claimed.emoji}</div>
-          <p className="font-orbitron font-black text-white mb-1">{claimed.name}</p>
-          <p className={cn('font-mono text-xs', RARITY_COLOR[claimed.rarity])}>{claimed.bonus}</p>
-          <button onClick={() => setClaimed(null)}
-            className="mt-4 font-mono text-[10px] text-white/30 hover:text-white/60 transition-colors">
-            DISMISS
-          </button>
+          <GameIcon name={RARITY_ICON[claimed.rarity]} size={52} className="mx-auto my-3"
+            style={{ color: claimed.rarity === 'Legendary' ? '#fbbf24' : claimed.rarity === 'Epic' ? 'var(--nv-magenta)' : 'var(--nv-cyan)' }} />
+          <p className="font-display font-black text-white mb-1">{claimed.name}</p>
+          <p className="font-game text-xs" style={{ color: 'var(--void-text-secondary)' }}>{claimed.bonus}</p>
+          <button onClick={() => setClaimed(null)} className="void-btn void-btn-ghost void-btn-sm mt-4">DISMISS</button>
         </div>
       )}
 
-      {/* Cost panel */}
-      <div className="glass rounded-xl p-5 border border-neon-magenta/25">
-        <h3 className="font-orbitron text-lg neon-magenta text-center mb-4 font-bold tracking-wider">
-          MINT AN NFT
-        </h3>
+      <div className="void-card-glass p-4 relative prism-corner-accent">
+        <p className="void-card-title text-center mb-4">MINT AN NFT</p>
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className={cn('glass rounded-xl p-3 border text-center',
-            state.diamonds >= MINT_COST_DIAMONDS ? 'border-neon-magenta/25' : 'border-red-500/25')}>
-            <p className="font-orbitron text-lg neon-magenta font-black">{MINT_COST_DIAMONDS} 💎</p>
-            <p className="font-mono text-[9px] text-white/30">DIAMONDS</p>
-            <p className="font-mono text-[9px] mt-0.5" style={{ color: state.diamonds >= MINT_COST_DIAMONDS ? 'rgba(0,255,136,0.7)' : 'rgba(255,80,80,0.7)' }}>
-              {state.diamonds >= MINT_COST_DIAMONDS ? '✓ HAVE IT' : '✗ NEED MORE'}
-            </p>
-          </div>
-          <div className={cn('glass rounded-xl p-3 border text-center',
-            state.chills >= MINT_COST_CHILLS ? 'border-neon-cyan/25' : 'border-red-500/25')}>
-            <p className="font-orbitron text-lg neon-cyan font-black">{fmt(MINT_COST_CHILLS)} ❄️</p>
-            <p className="font-mono text-[9px] text-white/30">CHILLS</p>
-            <p className="font-mono text-[9px] mt-0.5" style={{ color: state.chills >= MINT_COST_CHILLS ? 'rgba(0,255,136,0.7)' : 'rgba(255,80,80,0.7)' }}>
-              {state.chills >= MINT_COST_CHILLS ? '✓ HAVE IT' : '✗ NEED MORE'}
-            </p>
-          </div>
+          {[
+            { label: 'DIAMONDS', cost: MINT_COST_DIAMONDS, have: state.diamonds >= MINT_COST_DIAMONDS, val: `${MINT_COST_DIAMONDS} 💎` },
+            { label: 'CHILLS',   cost: MINT_COST_CHILLS,   have: state.chills >= MINT_COST_CHILLS,   val: `${fmt(MINT_COST_CHILLS)} ❄️` },
+          ].map(c => (
+            <div key={c.label} className="void-stat-card text-center"
+              style={{ borderColor: c.have ? 'rgba(0,243,255,0.2)' : 'rgba(239,68,68,0.2)' }}>
+              <p className="void-stat-label">{c.label}</p>
+              <p className="void-stat-value text-sm chill-number" style={{ color: c.have ? 'var(--nv-cyan)' : 'var(--void-error-400)' }}>{c.val}</p>
+              <span className={cn('void-badge mt-1', c.have ? 'void-badge-success' : 'void-badge-error')} style={{ fontSize: '0.55rem' }}>
+                {c.have ? '✓ HAVE IT' : '✗ NEED MORE'}
+              </span>
+            </div>
+          ))}
         </div>
 
         {!isMinting ? (
           <button onClick={startMint} disabled={!canMint}
-            className={cn(
-              'w-full py-4 rounded-xl font-orbitron font-bold tracking-widest border transition-all active:scale-95',
-              canMint
-                ? 'border-neon-magenta/50 text-neon-magenta bg-neon-magenta/15 hover:bg-neon-magenta/25 shadow-[0_0_20px_rgba(255,0,170,0.2)]'
-                : 'border-white/10 text-white/20 cursor-not-allowed',
-            )}
-          >
-            MINT NOW
+            className={cn('void-btn void-btn-lg void-btn-full', canMint ? 'void-btn-gradient' : 'void-btn-ghost opacity-30')}>
+            <GameIcon name="game-icons:anvil" size={16} /> MINT NOW
           </button>
         ) : isDone ? (
           <button onClick={claimNFT}
-            className="w-full py-4 rounded-xl font-orbitron font-bold tracking-widest border border-yellow-400/50 text-yellow-400 bg-yellow-400/15 animate-pulse hover:bg-yellow-400/25 transition-all active:scale-95">
+            className="void-btn void-btn-lg void-btn-full void-btn-success animate-pulse">
             CLAIM YOUR NFT ✨
           </button>
         ) : (
           <div className="space-y-3">
             <div className="text-center">
-              <p className="font-orbitron text-2xl neon-purple animate-pulse">{fmtTime(timeLeft)}</p>
-              <p className="font-mono text-[10px] text-white/30 mt-1">MINTING IN PROGRESS...</p>
+              <p className="font-display text-2xl font-black" style={{ color: '#c084fc' }}>{fmtTime(timeLeft)}</p>
+              <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>MINTING IN PROGRESS...</p>
             </div>
-            <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
-              <div className="h-full rounded-full bg-gradient-to-r from-neon-magenta to-neon-purple transition-all"
+            <div className="void-progress-bar" style={{ height: 6 }}>
+              <div className="void-progress-fill void-progress-fill-accent"
                 style={{ width: `${((MINT_DURATION - timeLeft) / MINT_DURATION) * 100}%` }} />
             </div>
-            <button onClick={cancelMint}
-              className="w-full py-2 rounded-xl font-orbitron text-xs text-red-400/60 border border-red-500/20 hover:border-red-500/40 transition-all">
-              CANCEL (refunds cost)
-            </button>
+            <button onClick={cancelMint} className="void-btn void-btn-sm void-btn-ghost void-btn-full">CANCEL (refunds cost)</button>
           </div>
         )}
       </div>
 
-      {/* Rarity odds */}
-      <div className="glass rounded-xl p-4 border border-white/5">
-        <p className="font-mono text-[9px] text-white/25 tracking-widest mb-3">MINT ODDS</p>
+      <div className="void-card p-4">
+        <p className="void-stat-label mb-3">MINT ODDS</p>
         {Object.entries(RARITY_WEIGHTS).map(([r, w]) => (
-          <div key={r} className="flex items-center justify-between py-1">
-            <span className={cn('font-orbitron text-[11px]', RARITY_COLOR[r as NFT['rarity']])}>{r}</span>
-            <div className="flex items-center gap-2">
-              <div className="w-20 h-1 rounded-full bg-white/10 overflow-hidden">
-                <div className="h-full rounded-full" style={{
-                  width: `${w}%`,
-                  background: r === 'Legendary' ? '#ffcc00' : r === 'Epic' ? '#ff00aa' : r === 'Rare' ? '#00f3ff' : 'rgba(255,255,255,0.4)',
-                }} />
-              </div>
-              <span className="font-mono text-[10px] text-white/30 w-10 text-right">{w}%</span>
+          <div key={r} className="flex items-center gap-3 py-1">
+            <span className={cn('void-badge flex-shrink-0', RARITY_BADGE[r as NFT['rarity']])} style={{ fontSize: '0.6rem', minWidth: 64, justifyContent: 'center' }}>{r}</span>
+            <div className="flex-1 void-progress-bar" style={{ height: 5 }}>
+              <div style={{
+                height: '100%', width: `${w}%`, borderRadius: 999, transition: 'width 0.5s',
+                background: r === 'Legendary' ? '#fbbf24' : r === 'Epic' ? 'var(--nv-magenta)' : r === 'Rare' ? 'var(--nv-cyan)' : 'rgba(255,255,255,0.3)',
+              }} />
             </div>
+            <span className="font-game text-xs w-8 text-right" style={{ color: 'var(--void-text-muted)' }}>{w}%</span>
           </div>
         ))}
       </div>
@@ -209,77 +176,63 @@ function MintTab() {
   );
 }
 
-// ── Collection tab ─────────────────────────────────────────────────
 function CollectionTab() {
   const { state } = useGame();
   const nfts = state.ownedNfts;
-
-  if (nfts.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <div className="text-4xl mb-3">🎴</div>
-        <p className="font-orbitron text-sm text-white/30">NO NFTS YET</p>
-        <p className="font-mono text-[10px] text-white/15 mt-1">Mint your first NFT to start your collection</p>
-      </div>
-    );
-  }
-
+  if (nfts.length === 0) return (
+    <div className="text-center py-12">
+      <GameIcon name="game-icons:card-exchange" size={48} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
+      <p className="font-display text-sm" style={{ color: 'var(--void-text-tertiary)' }}>NO NFTS YET</p>
+      <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>Mint your first NFT to start</p>
+    </div>
+  );
   return (
     <div className="grid grid-cols-2 gap-2">
       {nfts.map(nft => (
-        <div key={nft.id} className={cn('glass rounded-xl p-4 border text-center', RARITY_BORDER[nft.rarity])}>
-          <div className="text-3xl mb-2">{nft.emoji}</div>
-          <p className="font-orbitron text-[11px] font-bold text-white/90 leading-tight mb-1">{nft.name}</p>
-          <p className={cn('font-mono text-[9px] mb-1', RARITY_COLOR[nft.rarity])}>{nft.rarity}</p>
-          <p className="font-mono text-[9px] text-neon-cyan/60">{nft.bonus}</p>
+        <div key={nft.id} className="void-card-glass p-4 text-center relative"
+          style={{ borderColor: nft.rarity === 'Legendary' ? 'rgba(251,191,36,0.3)' : nft.rarity === 'Epic' ? 'rgba(255,0,170,0.3)' : 'rgba(0,243,255,0.2)' }}>
+          <GameIcon name={RARITY_ICON[nft.rarity]} size={36} className="mx-auto mb-2"
+            style={{ color: nft.rarity === 'Legendary' ? '#fbbf24' : nft.rarity === 'Epic' ? 'var(--nv-magenta)' : 'var(--nv-cyan)' }} />
+          <p className="font-display text-xs font-bold leading-tight mb-1">{nft.name}</p>
+          <span className={cn('void-badge', RARITY_BADGE[nft.rarity])} style={{ fontSize: '0.55rem' }}>{nft.rarity}</span>
+          <p className="font-game text-[9px] mt-1" style={{ color: 'var(--nv-cyan)' }}>{nft.bonus}</p>
         </div>
       ))}
     </div>
   );
 }
 
-// ── Main ──────────────────────────────────────────────────────────
 export default function Market() {
   const [tab, setTab] = useState<MarketTab>('mint');
   const { state } = useGame();
-
-  const TABS: { id: MarketTab; label: string; emoji: string }[] = [
-    { id: 'mint',        label: 'MINT',       emoji: '⚗️' },
-    { id: 'collection',  label: `COLLECTION (${state.ownedNfts.length})`, emoji: '🗂️' },
-    { id: 'marketplace', label: 'MARKETPLACE', emoji: '🏪' },
+  const TABS = [
+    { id: 'mint' as MarketTab,        label: 'MINT',        icon: 'game-icons:anvil' },
+    { id: 'collection' as MarketTab,  label: `OWNED (${state.ownedNfts.length})`, icon: 'game-icons:card-exchange' },
+    { id: 'marketplace' as MarketTab, label: 'TRADE',       icon: 'game-icons:shop' },
   ];
 
   return (
-    <div className="pb-4">
-      <div className="px-4 pt-5 pb-3 text-center">
-        <h2 className="font-orbitron text-2xl font-black neon-cyan tracking-widest mb-1">MARKET</h2>
-        <p className="font-mono text-[10px] text-white/30">NFTs · Artefacts · Trade</p>
+    <div className="pb-6">
+      <div className="px-4 pt-5 pb-4">
+        <h2 className="font-display text-2xl font-black neon-cyan tracking-widest mb-1">MARKET</h2>
+        <p className="font-game text-xs" style={{ color: 'var(--void-text-muted)', letterSpacing: '0.1em' }}>NFTs · ARTEFACTS · TRADE</p>
       </div>
-
-      {/* Tabs */}
       <div className="flex gap-1.5 px-4 mb-4">
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={cn(
-              'flex-1 py-2 rounded-xl font-orbitron text-[9px] font-bold border transition-all tracking-wider',
-              tab === t.id
-                ? 'border-neon-cyan/40 text-neon-cyan bg-neon-cyan/10'
-                : 'border-white/10 text-white/25',
-            )}
-          >
-            {t.emoji} {t.label}
+            className={cn('void-btn void-btn-xs flex-1 gap-1', tab === t.id ? 'void-btn-glow' : 'void-btn-ghost')}>
+            <GameIcon name={t.icon} size={11} />{t.label}
           </button>
         ))}
       </div>
-
       <div className="px-4">
         {tab === 'mint'        && <MintTab />}
         {tab === 'collection'  && <CollectionTab />}
         {tab === 'marketplace' && (
           <div className="text-center py-12">
-            <div className="text-4xl mb-3">🏪</div>
-            <p className="font-orbitron text-sm text-white/30">COMING SOON</p>
-            <p className="font-mono text-[10px] text-white/15 mt-1">P2P NFT trading · launching soon</p>
+            <GameIcon name="game-icons:shop" size={48} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
+            <p className="font-display text-sm" style={{ color: 'var(--void-text-tertiary)' }}>COMING SOON</p>
+            <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>P2P NFT trading · launching soon</p>
           </div>
         )}
       </div>
