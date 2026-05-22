@@ -31,7 +31,7 @@ function HQRoomCard({ def }: { def: typeof HQ_ROOMS[0] }) {
         <div className="flex items-start gap-3 mb-3">
           <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: 'linear-gradient(135deg, rgba(157,0,255,0.2), rgba(0,243,255,0.1))', border: '1px solid rgba(157,0,255,0.25)' }}>
-            <GameIcon name={HQ_ROOM_ICONS[def.id] ?? 'game-icons:castle'} size={22} style={{ color: '#c084fc' }} />
+            <GameIcon name={HQ_ROOM_ICONS[def.id] ?? 'nav:hq'} size={22} style={{ color: '#c084fc' }} />
           </div>
           <div className="flex-1">
             <div className="flex items-center justify-between">
@@ -54,13 +54,13 @@ function HQRoomCard({ def }: { def: typeof HQ_ROOMS[0] }) {
         {/* Action */}
         {isMax ? (
           <div className="flex items-center gap-2">
-            <GameIcon name="game-icons:upgrade" size={13} style={{ color: '#fbbf24' }} />
+            <GameIcon name="game:upgrade" size={13} style={{ color: '#fbbf24' }} />
             <span className="font-display text-xs" style={{ color: '#fbbf24', letterSpacing: '0.06em' }}>FULLY UPGRADED</span>
           </div>
         ) : (
           <button onClick={handleUpgrade}
             className={cn('void-btn void-btn-sm', canAfford ? 'void-btn-glow' : 'void-btn-ghost opacity-40')}>
-            <GameIcon name="game-icons:upgrade" size={12} />
+            <GameIcon name="game:upgrade" size={12} />
             UPGRADE · {upgCost} 💎
           </button>
         )}
@@ -134,7 +134,7 @@ export default function HQPanel() {
             mineReady && 'prism-corner-accent')}
             style={{ borderColor: mineReady ? 'rgba(255,204,0,0.4)' : 'rgba(255,204,0,0.15)' }}>
             <div className="flex items-center gap-3">
-              <GameIcon name="game-icons:mine-explosion" size={26} style={{ color: mineReady ? '#fbbf24' : 'var(--void-text-secondary)' }} />
+              <GameIcon name="game:mine" size={26} style={{ color: mineReady ? '#fbbf24' : 'var(--void-text-secondary)' }} />
               <div>
                 <p className="void-card-title text-sm" style={{ color: mineReady ? '#fbbf24' : 'var(--void-text-primary)' }}>DIAMOND MINE</p>
                 <p className="void-card-subtitle">
