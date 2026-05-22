@@ -44,7 +44,7 @@ export default function Achievements() {
                 style={{ borderColor: 'rgba(0,243,255,0.2)', background: 'rgba(0,243,255,0.05)' }}>
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2"
                   style={{ background: 'linear-gradient(135deg, rgba(0,243,255,0.2), rgba(157,0,255,0.1))', border: '1px solid rgba(0,243,255,0.25)' }}>
-                  <GameIcon name="game-icons:achievement" size={20} style={{ color: 'var(--nv-cyan)' }} />
+                  <GameIcon name="game:achieve" size={20} style={{ color: 'var(--nv-cyan)' }} />
                 </div>
                 <p className="font-display text-xs font-bold leading-tight mb-1" style={{ color: 'var(--void-text-primary)' }}>{def.name}</p>
                 <p className="font-game text-[9px] leading-snug" style={{ color: 'var(--void-text-tertiary)' }}>{def.description}</p>
@@ -70,7 +70,7 @@ export default function Achievements() {
               <div key={def.id} className="void-card p-3 opacity-45">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2"
                   style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <GameIcon name="game-icons:padlock" size={18} style={{ color: 'var(--void-text-muted)' }} />
+                  <GameIcon name="game:padlock" size={18} style={{ color: 'var(--void-text-muted)' }} />
                 </div>
                 <p className="font-display text-xs font-bold leading-tight mb-1" style={{ color: 'var(--void-text-tertiary)' }}>{def.name}</p>
                 <p className="font-game text-[9px] leading-snug" style={{ color: 'var(--void-text-muted)' }}>{def.description}</p>
