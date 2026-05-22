@@ -1,4 +1,4 @@
-import type { ProducerDef, ArtefactDef, HQRoomDef } from '../types/game';
+import type { ProducerDef, ArtefactDef, HQRoomDef, AchievementDef } from '../types/game';
 
 export const SAVE_KEY    = 'neonverse_save_v1';
 export const GAME_TITLE  = 'Neon Verse';
