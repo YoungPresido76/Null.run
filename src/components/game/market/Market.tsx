@@ -33,10 +33,10 @@ const RARITY_BADGE: Record<NFT['rarity'], string> = {
   Legendary: 'void-badge-warning',
 };
 const RARITY_ICON: Record<NFT['rarity'], string> = {
-  Common:    'game-icons:gem-necklace',
-  Rare:      'game-icons:crystal-wand',
-  Epic:      'game-icons:lightning-trio',
-  Legendary: 'game-icons:holy-grail',
+  Common:    'rarity:common',
+  Rare:      'rarity:rare',
+  Epic:      'rarity:epic',
+  Legendary: 'rarity:legendary',
 };
 
 function pickNFT(): Omit<NFT,'id'|'mintedAt'> {
@@ -135,7 +135,7 @@ function MintTab() {
         {!isMinting ? (
           <button onClick={startMint} disabled={!canMint}
             className={cn('void-btn void-btn-lg void-btn-full', canMint ? 'void-btn-gradient' : 'void-btn-ghost opacity-30')}>
-            <GameIcon name="game-icons:anvil" size={16} /> MINT NOW
+            <GameIcon name="game:anvil" size={16} /> MINT NOW
           </button>
         ) : isDone ? (
           <button onClick={claimNFT}
@@ -181,7 +181,7 @@ function CollectionTab() {
   const nfts = state.ownedNfts;
   if (nfts.length === 0) return (
     <div className="text-center py-12">
-      <GameIcon name="game-icons:card-exchange" size={48} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
+      <GameIcon name="game:exchange" size={48} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
       <p className="font-display text-sm" style={{ color: 'var(--void-text-tertiary)' }}>NO NFTS YET</p>
       <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>Mint your first NFT to start</p>
     </div>
@@ -206,9 +206,9 @@ export default function Market() {
   const [tab, setTab] = useState<MarketTab>('mint');
   const { state } = useGame();
   const TABS = [
-    { id: 'mint' as MarketTab,        label: 'MINT',        icon: 'game-icons:anvil' },
-    { id: 'collection' as MarketTab,  label: `OWNED (${state.ownedNfts.length})`, icon: 'game-icons:card-exchange' },
-    { id: 'marketplace' as MarketTab, label: 'TRADE',       icon: 'game-icons:shop' },
+    { id: 'mint' as MarketTab,        label: 'MINT',        icon: 'game:anvil' },
+    { id: 'collection' as MarketTab,  label: `OWNED (${state.ownedNfts.length})`, icon: 'game:exchange' },
+    { id: 'marketplace' as MarketTab, label: 'TRADE',       icon: 'game:shop' },
   ];
 
   return (
@@ -230,7 +230,7 @@ export default function Market() {
         {tab === 'collection'  && <CollectionTab />}
         {tab === 'marketplace' && (
           <div className="text-center py-12">
-            <GameIcon name="game-icons:shop" size={48} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
+            <GameIcon name="game:shop" size={48} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
             <p className="font-display text-sm" style={{ color: 'var(--void-text-tertiary)' }}>COMING SOON</p>
             <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>P2P NFT trading · launching soon</p>
           </div>
