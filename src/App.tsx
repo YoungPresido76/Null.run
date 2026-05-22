@@ -1,7 +1,6 @@
 import { GameProvider } from './context/GameContext';
-import { ToastProvider } from './context/ToastContext';
 import { useFirebase }  from './hooks/useFirebase';
-import AuthScreen       from './components/game/modals/PhoneAuth';
+import PhoneAuth        from './components/game/modals/PhoneAuth';
 import GameLayout       from './components/game/layout/GameLayout';
 import './index.css';
 
@@ -21,17 +20,15 @@ function AuthGate() {
     );
   }
 
-  if (!user) return <AuthScreen />;
+  if (!user) return <PhoneAuth />;
   return <GameLayout />;
 }
 
 // ── Root ─────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <ToastProvider>
-      <GameProvider>
-        <AuthGate />
-      </GameProvider>
-    </ToastProvider>
+    <GameProvider>
+      <AuthGate />
+    </GameProvider>
   );
 }
