@@ -1,0 +1,264 @@
+/**
+ * Void UI Kit - Design System Variables
+ * A dark-mode component library with 40+ ready-to-use blocks
+ * Version: 1.0.0
+ */
+
+:root {
+  /* Primary Colors - Deep Blue/Purple Theme */
+  --void-primary-50: #eef4ff;
+  --void-primary-100: #d9e6ff;
+  --void-primary-200: #bcd4ff;
+  --void-primary-300: #8eb8ff;
+  --void-primary-400: #5991ff;
+  --void-primary-500: #3366ff;
+  --void-primary-600: #1a44f2;
+  --void-primary-700: #1333db;
+  --void-primary-800: #152cb3;
+  --void-primary-900: #172a8a;
+  --void-primary-950: #121a4a;
+
+  /* Accent Colors - Cyan/Teal */
+  --void-accent-50: #ecfeff;
+  --void-accent-100: #cffafe;
+  --void-accent-200: #a5f3fc;
+  --void-accent-300: #67e8f9;
+  --void-accent-400: #22d3ee;
+  --void-accent-500: #06b6d4;
+  --void-accent-600: #0891b2;
+  --void-accent-700: #0e7490;
+  --void-accent-800: #155e75;
+  --void-accent-900: #164e63;
+  --void-accent-950: #083344;
+
+  /* Neutral Colors - Dark Theme */
+  --void-neutral-0: #ffffff;
+  --void-neutral-50: #f8fafc;
+  --void-neutral-100: #f1f5f9;
+  --void-neutral-200: #e2e8f0;
+  --void-neutral-300: #cbd5e1;
+  --void-neutral-400: #94a3b8;
+  --void-neutral-500: #64748b;
+  --void-neutral-600: #475569;
+  --void-neutral-700: #334155;
+  --void-neutral-800: #1e293b;
+  --void-neutral-900: #0f172a;
+  --void-neutral-950: #020617;
+
+  /* Semantic Colors */
+  --void-success-50: #f0fdf4;
+  --void-success-100: #dcfce7;
+  --void-success-200: #bbf7d0;
+  --void-success-300: #86efac;
+  --void-success-400: #4ade80;
+  --void-success-500: #22c55e;
+  --void-success-600: #16a34a;
+  --void-success-700: #15803d;
+  --void-success-800: #166534;
+  --void-success-900: #14532d;
+  --void-success-950: #052e16;
+
+  --void-warning-50: #fffbeb;
+  --void-warning-100: #fef3c7;
+  --void-warning-200: #fde68a;
+  --void-warning-300: #fcd34d;
+  --void-warning-400: #fbbf24;
+  --void-warning-500: #f59e0b;
+  --void-warning-600: #d97706;
+  --void-warning-700: #b45309;
+  --void-warning-800: #92400e;
+  --void-warning-900: #78350f;
+  --void-warning-950: #451a03;
+
+  --void-error-50: #fef2f2;
+  --void-error-100: #fee2e2;
+  --void-error-200: #fecaca;
+  --void-error-300: #fca5a5;
+  --void-error-400: #f87171;
+  --void-error-500: #ef4444;
+  --void-error-600: #dc2626;
+  --void-error-700: #b91c1c;
+  --void-error-800: #991b1b;
+  --void-error-900: #7f1d1d;
+  --void-error-950: #450a0a;
+
+  /* Background Colors */
+  --void-bg-primary: #0a0a0f;
+  --void-bg-secondary: #111118;
+  --void-bg-tertiary: #1a1a24;
+  --void-bg-elevated: #22222e;
+  --void-bg-overlay: rgba(0, 0, 0, 0.8);
+
+  /* Text Colors */
+  --void-text-primary: #ffffff;
+  --void-text-secondary: #a1a1aa;
+  --void-text-tertiary: #71717a;
+  --void-text-muted: #52525b;
+
+  /* Border Colors */
+  --void-border-primary: #27272a;
+  --void-border-secondary: #3f3f46;
+  --void-border-focus: var(--void-primary-500);
+
+  /* Spacing Scale */
+  --void-space-0: 0;
+  --void-space-1: 0.25rem;
+  --void-space-2: 0.5rem;
+  --void-space-3: 0.75rem;
+  --void-space-4: 1rem;
+  --void-space-5: 1.25rem;
+  --void-space-6: 1.5rem;
+  --void-space-8: 2rem;
+  --void-space-10: 2.5rem;
+  --void-space-12: 3rem;
+  --void-space-16: 4rem;
+  --void-space-20: 5rem;
+  --void-space-24: 6rem;
+  --void-space-32: 8rem;
+  --void-space-40: 10rem;
+  --void-space-48: 12rem;
+  --void-space-56: 14rem;
+  --void-space-64: 16rem;
+
+  /* Border Radius */
+  --void-radius-none: 0;
+  --void-radius-sm: 0.25rem;
+  --void-radius-md: 0.375rem;
+  --void-radius-lg: 0.5rem;
+  --void-radius-xl: 0.75rem;
+  --void-radius-2xl: 1rem;
+  --void-radius-3xl: 1.5rem;
+  --void-radius-full: 9999px;
+
+  /* Typography */
+  --void-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --void-font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+
+  /* Font Sizes */
+  --void-text-xs: 0.75rem;
+  --void-text-sm: 0.875rem;
+  --void-text-base: 1rem;
+  --void-text-lg: 1.125rem;
+  --void-text-xl: 1.25rem;
+  --void-text-2xl: 1.5rem;
+  --void-text-3xl: 1.875rem;
+  --void-text-4xl: 2.25rem;
+  --void-text-5xl: 3rem;
+  --void-text-6xl: 3.75rem;
+
+  /* Font Weights */
+  --void-font-light: 300;
+  --void-font-normal: 400;
+  --void-font-medium: 500;
+  --void-font-semibold: 600;
+  --void-font-bold: 700;
+  --void-font-extrabold: 800;
+
+  /* Line Heights */
+  --void-leading-none: 1;
+  --void-leading-tight: 1.25;
+  --void-leading-snug: 1.375;
+  --void-leading-normal: 1.5;
+  --void-leading-relaxed: 1.625;
+  --void-leading-loose: 2;
+
+  /* Shadows */
+  --void-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --void-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --void-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --void-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+  --void-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --void-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  --void-shadow-glow: 0 0 20px rgba(51, 102, 255, 0.3);
+  --void-shadow-glow-accent: 0 0 20px rgba(6, 182, 212, 0.3);
+
+  /* Transitions */
+  --void-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --void-transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --void-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --void-transition-slower: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index Scale */
+  --void-z-0: 0;
+  --void-z-10: 10;
+  --void-z-20: 20;
+  --void-z-30: 30;
+  --void-z-40: 40;
+  --void-z-50: 50;
+  --void-z-dropdown: 1000;
+  --void-z-sticky: 1020;
+  --void-z-fixed: 1030;
+  --void-z-modal-backdrop: 1040;
+  --void-z-modal: 1050;
+  --void-z-popover: 1060;
+  --void-z-tooltip: 1070;
+  --void-z-toast: 1080;
+}
+
+/* Dark mode is default for Void UI Kit */
+.void-dark {
+  color-scheme: dark;
+}
+
+/* Reset & Base Styles */
+.void-ui *,
+.void-ui *::before,
+.void-ui *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.void-ui {
+  font-family: var(--void-font-sans);
+  font-size: var(--void-text-base);
+  line-height: var(--void-leading-normal);
+  color: var(--void-text-primary);
+  background-color: var(--void-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+.void-ui ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.void-ui ::-webkit-scrollbar-track {
+  background: var(--void-bg-secondary);
+}
+
+.void-ui ::-webkit-scrollbar-thumb {
+  background: var(--void-border-secondary);
+  border-radius: var(--void-radius-full);
+}
+
+.void-ui ::-webkit-scrollbar-thumb:hover {
+  background: var(--void-neutral-500);
+}
+
+/* Selection */
+.void-ui ::selection {
+  background: var(--void-primary-500);
+  color: var(--void-neutral-0);
+}
+
+/* Focus Visible */
+.void-ui *:focus-visible {
+  outline: 2px solid var(--void-primary-500);
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only */
+.void-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

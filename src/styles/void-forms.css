@@ -1,0 +1,645 @@
+/**
+ * Void UI Kit - Forms Component Styles
+ * Version: 1.0.0
+ */
+
+@import url('../buttons/void-buttons.css');
+
+/* Form Layout */
+.void-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--void-space-5);
+}
+
+.void-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--void-space-4);
+  align-items: flex-start;
+}
+
+.void-form-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--void-space-4);
+}
+
+.void-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--void-space-2);
+  flex: 1;
+  min-width: 200px;
+}
+
+.void-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--void-space-5);
+}
+
+.void-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--void-space-3);
+  margin-top: var(--void-space-4);
+}
+
+/* Labels */
+.void-label {
+  font-size: var(--void-text-sm);
+  font-weight: var(--void-font-medium);
+  color: var(--void-text-primary);
+}
+
+.void-required {
+  color: var(--void-error-500);
+}
+
+/* Base Input */
+.void-input,
+.void-textarea,
+.void-select {
+  font-family: var(--void-font-sans);
+  font-size: var(--void-text-sm);
+  color: var(--void-text-primary);
+  background: var(--void-bg-tertiary);
+  border: 1px solid var(--void-border-primary);
+  border-radius: var(--void-radius-lg);
+  padding: var(--void-space-2) var(--void-space-3);
+  transition: all var(--void-transition-fast);
+  width: 100%;
+}
+
+.void-input::placeholder,
+.void-textarea::placeholder {
+  color: var(--void-text-muted);
+}
+
+.void-input:hover,
+.void-textarea:hover,
+.void-select:hover {
+  border-color: var(--void-border-secondary);
+}
+
+.void-input:focus,
+.void-textarea:focus,
+.void-select:focus {
+  outline: none;
+  border-color: var(--void-primary-500);
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.15);
+}
+
+.void-input:disabled,
+.void-textarea:disabled,
+.void-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--void-bg-secondary);
+}
+
+/* Input Sizes */
+.void-input-sm {
+  padding: var(--void-space-1) var(--void-space-2);
+  font-size: var(--void-text-xs);
+}
+
+.void-input-md {
+  padding: var(--void-space-2) var(--void-space-3);
+  font-size: var(--void-text-sm);
+}
+
+.void-input-lg {
+  padding: var(--void-space-3) var(--void-space-4);
+  font-size: var(--void-text-base);
+}
+
+/* Input States */
+.void-input-focused {
+  border-color: var(--void-primary-500);
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.15);
+}
+
+.void-input-error {
+  border-color: var(--void-error-500);
+}
+
+.void-input-error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.void-input-success {
+  border-color: var(--void-success-500);
+}
+
+.void-input-success:focus {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.void-error-message {
+  font-size: var(--void-text-xs);
+  color: var(--void-error-400);
+}
+
+/* Input with Icon */
+.void-input-wrapper {
+  position: relative;
+}
+
+.void-input-icon {
+  position: absolute;
+  left: var(--void-space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--void-text-tertiary);
+  pointer-events: none;
+}
+
+.void-input-with-icon {
+  padding-left: var(--void-space-10);
+}
+
+.void-input-action {
+  position: absolute;
+  right: var(--void-space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--void-radius-md);
+  color: var(--void-text-tertiary);
+  cursor: pointer;
+  transition: all var(--void-transition-fast);
+}
+
+.void-input-action svg {
+  width: 18px;
+  height: 18px;
+}
+
+.void-input-action:hover {
+  color: var(--void-text-primary);
+  background: var(--void-bg-elevated);
+}
+
+/* Textarea */
+.void-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Select */
+.void-select-wrapper {
+  position: relative;
+}
+
+.void-select {
+  appearance: none;
+  padding-right: var(--void-space-10);
+  cursor: pointer;
+}
+
+.void-select-icon {
+  position: absolute;
+  right: var(--void-space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--void-text-tertiary);
+  pointer-events: none;
+}
+
+/* Multi Select */
+.void-multi-select {
+  position: relative;
+}
+
+.void-multi-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--void-space-2) var(--void-space-3);
+  background: var(--void-bg-tertiary);
+  border: 1px solid var(--void-border-primary);
+  border-radius: var(--void-radius-lg);
+  cursor: pointer;
+  transition: all var(--void-transition-fast);
+}
+
+.void-multi-select-trigger:hover {
+  border-color: var(--void-border-secondary);
+}
+
+.void-multi-select-trigger svg {
+  width: 18px;
+  height: 18px;
+  color: var(--void-text-tertiary);
+}
+
+.void-multi-select-placeholder {
+  font-size: var(--void-text-sm);
+  color: var(--void-text-muted);
+}
+
+.void-multi-select-options {
+  position: absolute;
+  top: calc(100% + var(--void-space-1));
+  left: 0;
+  right: 0;
+  background: var(--void-bg-elevated);
+  border: 1px solid var(--void-border-primary);
+  border-radius: var(--void-radius-lg);
+  padding: var(--void-space-2);
+  z-index: var(--void-z-dropdown);
+}
+
+.void-multi-select-option {
+  display: flex;
+  align-items: center;
+  gap: var(--void-space-2);
+  padding: var(--void-space-2) var(--void-space-3);
+  font-size: var(--void-text-sm);
+  color: var(--void-text-primary);
+  cursor: pointer;
+  border-radius: var(--void-radius-md);
+  transition: background var(--void-transition-fast);
+}
+
+.void-multi-select-option:hover {
+  background: var(--void-bg-tertiary);
+}
+
+.void-multi-select-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* File Upload */
+.void-file-upload {
+  position: relative;
+}
+
+.void-file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--void-space-2);
+  padding: var(--void-space-8);
+  background: var(--void-bg-tertiary);
+  border: 2px dashed var(--void-border-secondary);
+  border-radius: var(--void-radius-xl);
+  cursor: pointer;
+  transition: all var(--void-transition-fast);
+  text-align: center;
+}
+
+.void-file-label:hover {
+  border-color: var(--void-primary-500);
+  background: rgba(51, 102, 255, 0.05);
+}
+
+.void-file-label svg {
+  width: 40px;
+  height: 40px;
+  color: var(--void-text-tertiary);
+}
+
+.void-file-label span {
+  font-size: var(--void-text-sm);
+  font-weight: var(--void-font-medium);
+  color: var(--void-text-primary);
+}
+
+.void-file-label small {
+  font-size: var(--void-text-xs);
+  color: var(--void-text-tertiary);
+}
+
+/* Checkbox */
+.void-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--void-space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.void-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.void-checkbox-checkmark {
+  width: 18px;
+  height: 18px;
+  background: var(--void-bg-tertiary);
+  border: 1px solid var(--void-border-secondary);
+  border-radius: var(--void-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--void-transition-fast);
+  flex-shrink: 0;
+}
+
+.void-checkbox-checkmark::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(0);
+  transition: all var(--void-transition-fast);
+}
+
+.void-checkbox-input:checked + .void-checkbox-checkmark {
+  background: var(--void-primary-600);
+  border-color: var(--void-primary-600);
+}
+
+.void-checkbox-input:checked + .void-checkbox-checkmark::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.void-checkbox-input:disabled + .void-checkbox-checkmark {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.void-checkbox-input:focus-visible + .void-checkbox-checkmark {
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.15);
+}
+
+.void-checkbox-label {
+  font-size: var(--void-text-sm);
+  color: var(--void-text-primary);
+}
+
+.void-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--void-space-2);
+}
+
+/* Radio Button */
+.void-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--void-space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.void-radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.void-radio-checkmark {
+  width: 18px;
+  height: 18px;
+  background: var(--void-bg-tertiary);
+  border: 1px solid var(--void-border-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--void-transition-fast);
+  flex-shrink: 0;
+}
+
+.void-radio-checkmark::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--void-neutral-0);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all var(--void-transition-fast);
+}
+
+.void-radio-input:checked + .void-radio-checkmark {
+  background: var(--void-primary-600);
+  border-color: var(--void-primary-600);
+}
+
+.void-radio-input:checked + .void-radio-checkmark::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.void-radio-input:disabled + .void-radio-checkmark {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.void-radio-input:focus-visible + .void-radio-checkmark {
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.15);
+}
+
+.void-radio-label {
+  font-size: var(--void-text-sm);
+  color: var(--void-text-primary);
+}
+
+/* Toggle Switch */
+.void-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--void-space-3);
+  cursor: pointer;
+  user-select: none;
+}
+
+.void-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.void-toggle-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--void-bg-elevated);
+  border-radius: var(--void-radius-full);
+  transition: all var(--void-transition-fast);
+  flex-shrink: 0;
+}
+
+.void-toggle-slider::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: var(--void-neutral-0);
+  border-radius: 50%;
+  transition: all var(--void-transition-fast);
+  box-shadow: var(--void-shadow-sm);
+}
+
+.void-toggle-input:checked + .void-toggle-slider {
+  background: var(--void-primary-600);
+}
+
+.void-toggle-input:checked + .void-toggle-slider::after {
+  transform: translateX(20px);
+}
+
+.void-toggle-input:disabled + .void-toggle-slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.void-toggle-input:focus-visible + .void-toggle-slider {
+  box-shadow: 0 0 0 3px rgba(51, 102, 255, 0.15);
+}
+
+.void-toggle-label {
+  font-size: var(--void-text-sm);
+  color: var(--void-text-primary);
+}
+
+/* Small Toggle */
+.void-toggle-sm .void-toggle-slider {
+  width: 36px;
+  height: 20px;
+}
+
+.void-toggle-sm .void-toggle-slider::after {
+  width: 16px;
+  height: 16px;
+}
+
+.void-toggle-sm .void-toggle-input:checked + .void-toggle-slider::after {
+  transform: translateX(16px);
+}
+
+/* Input Group */
+.void-input-group {
+  display: flex;
+}
+
+.void-input-group .void-input {
+  flex: 1;
+  border-radius: 0;
+}
+
+.void-input-group .void-input:first-child {
+  border-radius: var(--void-radius-lg) 0 0 var(--void-radius-lg);
+}
+
+.void-input-group .void-input:last-child {
+  border-radius: 0 var(--void-radius-lg) var(--void-radius-lg) 0;
+}
+
+.void-input-group-prefix,
+.void-input-group-suffix {
+  display: flex;
+  align-items: center;
+  padding: var(--void-space-2) var(--void-space-3);
+  font-size: var(--void-text-sm);
+  font-weight: var(--void-font-medium);
+  color: var(--void-text-secondary);
+  background: var(--void-bg-elevated);
+  border: 1px solid var(--void-border-primary);
+}
+
+.void-input-group-prefix {
+  border-radius: var(--void-radius-lg) 0 0 var(--void-radius-lg);
+  border-right: none;
+}
+
+.void-input-group-suffix {
+  border-radius: 0 var(--void-radius-lg) var(--void-radius-lg) 0;
+  border-left: none;
+}
+
+.void-input-group .void-btn {
+  border-radius: 0 var(--void-radius-lg) var(--void-radius-lg) 0;
+}
+
+/* Range Slider */
+.void-range {
+  display: flex;
+  flex-direction: column;
+  gap: var(--void-space-2);
+}
+
+.void-range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--void-bg-elevated);
+  border-radius: var(--void-radius-full);
+  outline: none;
+}
+
+.void-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--void-primary-500);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--void-transition-fast);
+  box-shadow: var(--void-shadow-sm);
+}
+
+.void-range-input::-webkit-slider-thumb:hover {
+  background: var(--void-primary-400);
+  transform: scale(1.1);
+}
+
+.void-range-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--void-primary-500);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: all var(--void-transition-fast);
+}
+
+.void-range-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--void-text-xs);
+  color: var(--void-text-tertiary);
+}
+
+/* Date Input */
+.void-input-date::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .void-form-row-2 {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,328 @@
+/**
+ * Void UI Kit - Buttons Component Styles
+ * Version: 1.0.0
+ */
+
+/* Showcase Styles (for preview only) */
+.void-component-showcase {
+  padding: var(--void-space-8);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.void-showcase-title {
+  font-size: var(--void-text-4xl);
+  font-weight: var(--void-font-bold);
+  margin-bottom: var(--void-space-2);
+  background: linear-gradient(135deg, var(--void-primary-400), var(--void-accent-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.void-showcase-description {
+  color: var(--void-text-secondary);
+  margin-bottom: var(--void-space-8);
+}
+
+.void-showcase-section {
+  margin-bottom: var(--void-space-10);
+}
+
+.void-section-title {
+  font-size: var(--void-text-lg);
+  font-weight: var(--void-font-semibold);
+  color: var(--void-text-primary);
+  margin-bottom: var(--void-space-4);
+}
+
+.void-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--void-space-3);
+  align-items: center;
+}
+
+/* Base Button Styles */
+.void-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--void-space-2);
+  font-family: var(--void-font-sans);
+  font-weight: var(--void-font-medium);
+  font-size: var(--void-text-sm);
+  line-height: var(--void-leading-none);
+  text-decoration: none;
+  border: none;
+  border-radius: var(--void-radius-lg);
+  cursor: pointer;
+  transition: all var(--void-transition-base);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.void-btn:focus-visible {
+  outline: 2px solid var(--void-primary-500);
+  outline-offset: 2px;
+}
+
+.void-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Button Sizes */
+.void-btn-xs {
+  padding: var(--void-space-1) var(--void-space-2);
+  font-size: var(--void-text-xs);
+  border-radius: var(--void-radius-md);
+}
+
+.void-btn-sm {
+  padding: var(--void-space-2) var(--void-space-3);
+  font-size: var(--void-text-xs);
+}
+
+.void-btn-md {
+  padding: var(--void-space-2) var(--void-space-4);
+  font-size: var(--void-text-sm);
+}
+
+.void-btn-lg {
+  padding: var(--void-space-3) var(--void-space-5);
+  font-size: var(--void-text-base);
+}
+
+.void-btn-xl {
+  padding: var(--void-space-4) var(--void-space-6);
+  font-size: var(--void-text-lg);
+  border-radius: var(--void-radius-xl);
+}
+
+/* Primary Button */
+.void-btn-primary {
+  background: linear-gradient(135deg, var(--void-primary-600), var(--void-primary-700));
+  color: var(--void-neutral-0);
+  box-shadow: var(--void-shadow-md);
+}
+
+.void-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--void-primary-500), var(--void-primary-600));
+  box-shadow: var(--void-shadow-lg), var(--void-shadow-glow);
+  transform: translateY(-1px);
+}
+
+.void-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--void-shadow-sm);
+}
+
+/* Secondary Button */
+.void-btn-secondary {
+  background: var(--void-bg-elevated);
+  color: var(--void-text-primary);
+  border: 1px solid var(--void-border-secondary);
+}
+
+.void-btn-secondary:hover:not(:disabled) {
+  background: var(--void-bg-tertiary);
+  border-color: var(--void-border-primary);
+}
+
+/* Outline Button */
+.void-btn-outline {
+  background: transparent;
+  color: var(--void-text-primary);
+  border: 1px solid var(--void-border-secondary);
+}
+
+.void-btn-outline:hover:not(:disabled) {
+  background: var(--void-bg-tertiary);
+  border-color: var(--void-primary-500);
+  color: var(--void-primary-400);
+}
+
+/* Ghost Button */
+.void-btn-ghost {
+  background: transparent;
+  color: var(--void-text-secondary);
+}
+
+.void-btn-ghost:hover:not(:disabled) {
+  background: var(--void-bg-tertiary);
+  color: var(--void-text-primary);
+}
+
+/* Icon Button */
+.void-btn-icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+.void-btn-icon-only {
+  padding: var(--void-space-2);
+  aspect-ratio: 1;
+}
+
+.void-btn-icon-only svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+/* Loading State */
+.void-btn-loading {
+  cursor: wait;
+}
+
+.void-spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: void-spin 0.75s linear infinite;
+}
+
+@keyframes void-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Gradient Button */
+.void-btn-gradient {
+  background: linear-gradient(135deg, var(--void-primary-500), var(--void-accent-500));
+  color: var(--void-neutral-0);
+  box-shadow: var(--void-shadow-md);
+}
+
+.void-btn-gradient:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--void-primary-400), var(--void-accent-400));
+  box-shadow: var(--void-shadow-lg), var(--void-shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* Glow Button */
+.void-btn-glow {
+  background: var(--void-primary-600);
+  color: var(--void-neutral-0);
+  box-shadow: 0 0 20px rgba(51, 102, 255, 0.5), 0 0 40px rgba(51, 102, 255, 0.3);
+}
+
+.void-btn-glow:hover:not(:disabled) {
+  background: var(--void-primary-500);
+  box-shadow: 0 0 30px rgba(51, 102, 255, 0.7), 0 0 60px rgba(51, 102, 255, 0.5);
+}
+
+/* Danger Button */
+.void-btn-danger {
+  background: linear-gradient(135deg, var(--void-error-600), var(--void-error-700));
+  color: var(--void-neutral-0);
+  box-shadow: var(--void-shadow-md);
+}
+
+.void-btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--void-error-500), var(--void-error-600));
+  box-shadow: var(--void-shadow-lg), 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Success Button */
+.void-btn-success {
+  background: linear-gradient(135deg, var(--void-success-600), var(--void-success-700));
+  color: var(--void-neutral-0);
+  box-shadow: var(--void-shadow-md);
+}
+
+.void-btn-success:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--void-success-500), var(--void-success-600));
+  box-shadow: var(--void-shadow-lg), 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+/* Button Group */
+.void-btn-group {
+  display: inline-flex;
+  border-radius: var(--void-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--void-border-secondary);
+}
+
+.void-btn-group .void-btn {
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid var(--void-border-secondary);
+}
+
+.void-btn-group .void-btn:last-child {
+  border-right: none;
+}
+
+.void-btn-group .void-btn-active {
+  background: var(--void-primary-600);
+  color: var(--void-neutral-0);
+}
+
+/* Floating Action Button */
+.void-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all var(--void-transition-base);
+  box-shadow: var(--void-shadow-lg);
+}
+
+.void-fab svg {
+  width: 24px;
+  height: 24px;
+}
+
+.void-fab-primary {
+  background: linear-gradient(135deg, var(--void-primary-500), var(--void-primary-600));
+  color: var(--void-neutral-0);
+}
+
+.void-fab-primary:hover {
+  background: linear-gradient(135deg, var(--void-primary-400), var(--void-primary-500));
+  box-shadow: var(--void-shadow-xl), var(--void-shadow-glow);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.void-fab-secondary {
+  background: var(--void-bg-elevated);
+  color: var(--void-text-primary);
+  border: 1px solid var(--void-border-secondary);
+}
+
+.void-fab-secondary:hover {
+  background: var(--void-bg-tertiary);
+  border-color: var(--void-primary-500);
+  color: var(--void-primary-400);
+  transform: translateY(-2px);
+}
+
+/* Ripple Effect */
+.void-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.void-btn:active::after {
+  width: 200%;
+  height: 200%;
+}

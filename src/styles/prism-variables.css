@@ -1,0 +1,321 @@
+/**
+ * Prism Glass Kit - Design System Variables
+ * A glassmorphism UI kit with frosted-glass effects
+ * Version: 1.0.0
+ */
+
+/* ============================================
+   LIGHT MODE - Default
+   ============================================ */
+
+:root {
+  /* Primary Colors - Teal/Cyan Gradient Theme */
+  --prism-primary-50: #f0fdfa;
+  --prism-primary-100: #ccfbf1;
+  --prism-primary-200: #99f6e4;
+  --prism-primary-300: #5eead4;
+  --prism-primary-400: #2dd4bf;
+  --prism-primary-500: #14b8a6;
+  --prism-primary-600: #0d9488;
+  --prism-primary-700: #0f766e;
+  --prism-primary-800: #115e59;
+  --prism-primary-900: #134e4a;
+  --prism-primary-950: #042f2e;
+
+  /* Secondary Colors - Purple */
+  --prism-secondary-50: #faf5ff;
+  --prism-secondary-100: #f3e8ff;
+  --prism-secondary-200: #e9d5ff;
+  --prism-secondary-300: #d8b4fe;
+  --prism-secondary-400: #c084fc;
+  --prism-secondary-500: #a855f7;
+  --prism-secondary-600: #9333ea;
+  --prism-secondary-700: #7c3aed;
+  --prism-secondary-800: #6b21a8;
+  --prism-secondary-900: #581c87;
+  --prism-secondary-950: #3b0764;
+
+  /* Accent Colors - Pink */
+  --prism-accent-50: #fdf2f8;
+  --prism-accent-100: #fce7f3;
+  --prism-accent-200: #fbcfe8;
+  --prism-accent-300: #f9a8d4;
+  --prism-accent-400: #f472b6;
+  --prism-accent-500: #ec4899;
+  --prism-accent-600: #db2777;
+  --prism-accent-700: #be185d;
+  --prism-accent-800: #9d174d;
+  --prism-accent-900: #831843;
+  --prism-accent-950: #500724;
+
+  /* Neutral Colors - Light Theme */
+  --prism-neutral-0: #ffffff;
+  --prism-neutral-50: #fafafa;
+  --prism-neutral-100: #f5f5f5;
+  --prism-neutral-200: #e5e5e5;
+  --prism-neutral-300: #d4d4d4;
+  --prism-neutral-400: #a3a3a3;
+  --prism-neutral-500: #737373;
+  --prism-neutral-600: #525252;
+  --prism-neutral-700: #404040;
+  --prism-neutral-800: #262626;
+  --prism-neutral-900: #171717;
+  --prism-neutral-950: #0a0a0a;
+
+  /* Semantic Colors */
+  --prism-success-500: #22c55e;
+  --prism-warning-500: #f59e0b;
+  --prism-error-500: #ef4444;
+  --prism-info-500: #3b82f6;
+
+  /* ============================================
+     GLASSMORPHISM - Light Mode
+     ============================================ */
+  
+  /* Glass Backgrounds */
+  --prism-glass-bg: rgba(255, 255, 255, 0.25);
+  --prism-glass-bg-hover: rgba(255, 255, 255, 0.4);
+  --prism-glass-bg-active: rgba(255, 255, 255, 0.55);
+  --prism-glass-bg-elevated: rgba(255, 255, 255, 0.6);
+  
+  /* Glass Borders */
+  --prism-glass-border: rgba(255, 255, 255, 0.5);
+  --prism-glass-border-strong: rgba(255, 255, 255, 0.8);
+  --prism-glass-border-subtle: rgba(255, 255, 255, 0.2);
+  
+  /* Backdrop Blur */
+  --prism-blur-sm: blur(4px);
+  --prism-blur-md: blur(12px);
+  --prism-blur-lg: blur(20px);
+  --prism-blur-xl: blur(32px);
+  
+  /* Gradient Borders */
+  --prism-gradient-border: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.6) 100%);
+  
+  --prism-gradient-primary: linear-gradient(135deg, 
+    var(--prism-primary-400) 0%, 
+    var(--prism-secondary-500) 100%);
+  
+  --prism-gradient-glow: linear-gradient(135deg, 
+    rgba(20, 184, 166, 0.4) 0%, 
+    rgba(168, 85, 247, 0.4) 100%);
+
+  /* ============================================
+     BACKGROUND COLORS - Light Mode
+     ============================================ */
+  --prism-bg-primary: #f0f4f8;
+  --prism-bg-secondary: linear-gradient(135deg, #e0e7ff 0%, #d1fae5 50%, #fce7f3 100%);
+  --prism-bg-tertiary: rgba(255, 255, 255, 0.5);
+  --prism-bg-overlay: rgba(0, 0, 0, 0.3);
+
+  /* Text Colors - Light Mode */
+  --prism-text-primary: #1e293b;
+  --prism-text-secondary: #64748b;
+  --prism-text-tertiary: #94a3b8;
+  --prism-text-muted: #cbd5e1;
+
+  /* ============================================
+     SPACING & SIZING
+     ============================================ */
+  --prism-space-0: 0;
+  --prism-space-1: 0.25rem;
+  --prism-space-2: 0.5rem;
+  --prism-space-3: 0.75rem;
+  --prism-space-4: 1rem;
+  --prism-space-5: 1.25rem;
+  --prism-space-6: 1.5rem;
+  --prism-space-8: 2rem;
+  --prism-space-10: 2.5rem;
+  --prism-space-12: 3rem;
+  --prism-space-16: 4rem;
+
+  /* Border Radius */
+  --prism-radius-sm: 0.5rem;
+  --prism-radius-md: 0.75rem;
+  --prism-radius-lg: 1rem;
+  --prism-radius-xl: 1.5rem;
+  --prism-radius-2xl: 2rem;
+  --prism-radius-full: 9999px;
+
+  /* Typography */
+  --prism-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --prism-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes */
+  --prism-text-xs: 0.75rem;
+  --prism-text-sm: 0.875rem;
+  --prism-text-base: 1rem;
+  --prism-text-lg: 1.125rem;
+  --prism-text-xl: 1.25rem;
+  --prism-text-2xl: 1.5rem;
+  --prism-text-3xl: 1.875rem;
+  --prism-text-4xl: 2.25rem;
+
+  /* Shadows - Glass Effect */
+  --prism-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --prism-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --prism-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --prism-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --prism-shadow-glow: 0 0 40px rgba(20, 184, 166, 0.2);
+  --prism-shadow-glow-purple: 0 0 40px rgba(168, 85, 247, 0.2);
+
+  /* Transitions */
+  --prism-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --prism-transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --prism-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index */
+  --prism-z-dropdown: 1000;
+  --prism-z-sticky: 1020;
+  --prism-z-modal: 1050;
+  --prism-z-tooltip: 1070;
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+
+.prism-dark {
+  /* Glass Backgrounds - Dark */
+  --prism-glass-bg: rgba(15, 23, 42, 0.4);
+  --prism-glass-bg-hover: rgba(15, 23, 42, 0.55);
+  --prism-glass-bg-active: rgba(15, 23, 42, 0.7);
+  --prism-glass-bg-elevated: rgba(15, 23, 42, 0.6);
+  
+  /* Glass Borders - Dark */
+  --prism-glass-border: rgba(255, 255, 255, 0.1);
+  --prism-glass-border-strong: rgba(255, 255, 255, 0.2);
+  --prism-glass-border-subtle: rgba(255, 255, 255, 0.05);
+  
+  /* Gradient Border - Dark */
+  --prism-gradient-border: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.15) 100%);
+
+  /* Background Colors - Dark */
+  --prism-bg-primary: #0f172a;
+  --prism-bg-secondary: linear-gradient(135deg, #1e1b4b 0%, #064e3b 50%, #4c0519 100%);
+  --prism-bg-tertiary: rgba(15, 23, 42, 0.6);
+  --prism-bg-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Text Colors - Dark */
+  --prism-text-primary: #f8fafc;
+  --prism-text-secondary: #94a3b8;
+  --prism-text-tertiary: #64748b;
+  --prism-text-muted: #475569;
+
+  /* Shadows - Dark */
+  --prism-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --prism-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --prism-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --prism-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+.prism-ui *,
+.prism-ui *::before,
+.prism-ui *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.prism-ui {
+  font-family: var(--prism-font-sans);
+  font-size: var(--prism-text-base);
+  line-height: 1.5;
+  color: var(--prism-text-primary);
+  background: var(--prism-bg-secondary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glass Base Class */
+.prism-glass {
+  background: var(--prism-glass-bg);
+  backdrop-filter: var(--prism-blur-md);
+  -webkit-backdrop-filter: var(--prism-blur-md);
+  border: 1px solid var(--prism-glass-border);
+  border-radius: var(--prism-radius-lg);
+}
+
+/* Gradient Border Effect */
+.prism-gradient-border {
+  position: relative;
+  background: var(--prism-glass-bg);
+  border-radius: var(--prism-radius-lg);
+}
+
+.prism-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: var(--prism-gradient-border);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* Glow Effect */
+.prism-glow {
+  box-shadow: var(--prism-shadow-glow);
+}
+
+.prism-glow-purple {
+  box-shadow: var(--prism-shadow-glow-purple);
+}
+
+/* Scrollbar */
+.prism-ui ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.prism-ui ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.prism-ui ::-webkit-scrollbar-thumb {
+  background: var(--prism-glass-border);
+  border-radius: var(--prism-radius-full);
+}
+
+.prism-ui ::-webkit-scrollbar-thumb:hover {
+  background: var(--prism-glass-border-strong);
+}
+
+/* Selection */
+.prism-ui ::selection {
+  background: var(--prism-primary-400);
+  color: white;
+}
+
+/* Focus Visible */
+.prism-ui *:focus-visible {
+  outline: 2px solid var(--prism-primary-500);
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only */
+.prism-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
