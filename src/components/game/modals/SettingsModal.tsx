@@ -99,7 +99,7 @@ export default function SettingsModal({ open, onClose }: Props) {
               </p>
             </div>
             <button onClick={onClose} className="void-btn void-btn-xs void-btn-ghost">
-              <GameIcon name="lucide:x" size={14} />
+              <GameIcon name="nav:close" size={14} />
             </button>
           </div>
 
