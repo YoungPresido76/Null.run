@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { useGame } from '@/context/GameContext';
 import { fmt }     from '@/lib/utils';
 import { PRODUCERS } from '@/lib/constants';
@@ -150,8 +150,6 @@ export default function ChillOrb() {
         </p>
       </div>
 
-      {/* Owned producers mini list */}
-      <div className="void-card-glass mx-4 mt-4 mb-2 p-4">
       {/* Producer list */}
       <div className="void-card-glass mx-4 mt-4 mb-2 p-4">
         <p className="void-stat-label mb-3 flex items-center gap-2">
