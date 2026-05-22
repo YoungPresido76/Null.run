@@ -4,88 +4,54 @@ import { fmt, cn } from '@/lib/utils';
 import type { LeaderboardEntry } from '@/types/firebase';
 import { GameIcon, CURRENCY_ICONS } from '@/lib/icons';
 
-const MEDAL_ICONS = ['game-icons:laurel-crown', 'game-icons:trophy', 'game-icons:medal'];
-const MEDAL_COLOR = ['text-yellow-400', 'text-slate-300', 'text-amber-600'];
+const MEDAL_ICONS  = ['game-icons:laurel-crown', 'game-icons:trophy', 'game-icons:medal'];
+const MEDAL_COLORS = ['#fbbf24', '#d1d5db', '#b45309'];
+const PODIUM_ORDER = [1, 0, 2];
+const PODIUM_H     = ['h-14', 'h-20', 'h-10'];
 
-// ── Sub-tab config ────────────────────────────────────────────────
-const TABS: { id: LBTab; label: string; icon: string; color: string; shadowColor: string }[] = [
-  { id: 'chills',   label: 'CHILLS',   icon: CURRENCY_ICONS.chills,   color: 'text-neon-cyan',    shadowColor: 'rgba(0,243,255,0.4)'  },
-  { id: 'diamonds', label: 'DIAMONDS', icon: CURRENCY_ICONS.diamonds, color: 'text-neon-magenta', shadowColor: 'rgba(255,0,170,0.4)'  },
-  { id: 'trophies', label: 'TROPHIES', icon: 'game-icons:trophy',     color: 'text-yellow-400',   shadowColor: 'rgba(250,204,21,0.4)' },
+const TABS: { id: LBTab; label: string; icon: string; color: string }[] = [
+  { id: 'chills',   label: 'CHILLS',   icon: CURRENCY_ICONS.chills,   color: 'void-btn-glow'   },
+  { id: 'diamonds', label: 'DIAMONDS', icon: CURRENCY_ICONS.diamonds, color: 'void-btn-accent' },
+  { id: 'trophies', label: 'TROPHIES', icon: 'game-icons:trophy',     color: 'void-btn-gradient' },
 ];
 
-// ── Value formatter per tab ───────────────────────────────────────
 function getValue(entry: LeaderboardEntry, tab: LBTab): string {
-  if (tab === 'chills')   return `${fmt(entry.totalChills)}`;
-  if (tab === 'diamonds') return `${fmt(entry.diamonds)}`;
-  return `${entry.achCount ?? 0}`;
+  if (tab === 'chills')   return fmt(entry.totalChills);
+  if (tab === 'diamonds') return fmt(entry.diamonds);
+  return String(entry.achCount ?? 0);
 }
 
-// ── Top 3 podium ─────────────────────────────────────────────────
-const PODIUM_ORDER = [1, 0, 2];
-const PODIUM_H    = ['h-16', 'h-24', 'h-12'];
-const PODIUM_GLOW = [
-  'shadow-[0_0_20px_rgba(0,243,255,0.4)] border-neon-cyan/40',
-  'shadow-[0_0_30px_rgba(255,215,0,0.5)] border-yellow-400/50',
-  'shadow-[0_0_15px_rgba(157,0,255,0.3)] border-neon-purple/30',
-];
+function getValueColor(tab: LBTab) {
+  if (tab === 'chills')   return 'var(--nv-cyan)';
+  if (tab === 'diamonds') return 'var(--nv-magenta)';
+  return '#fbbf24';
+}
 
 function Podium({ entries, tab }: { entries: LeaderboardEntry[]; tab: LBTab }) {
   const top3 = entries.slice(0, 3);
-  if (top3.length === 0) return null;
+  if (top3.length < 2) return null;
 
   return (
-    <div className="flex items-end justify-center gap-3 px-4 pt-6 pb-2">
+    <div className="flex items-end justify-center gap-3 px-4 pt-5 pb-3">
       {PODIUM_ORDER.map(dataIdx => {
         const entry = top3[dataIdx];
         if (!entry) return <div key={dataIdx} className="flex-1" />;
-        const pos = dataIdx; // 0 = 1st, 1 = 2nd, 2 = 3rd
-
         return (
           <div key={dataIdx} className="flex-1 flex flex-col items-center gap-1.5">
-            {/* Medal badge */}
-            <GameIcon
-              name={MEDAL_ICONS[pos]}
-              size={pos === 0 ? 36 : pos === 1 ? 28 : 24}
-              className={MEDAL_COLOR[pos]}
-            />
-
-            {/* Avatar circle */}
-            <div className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center',
-              'glass border font-orbitron font-black text-sm',
-              PODIUM_GLOW[pos],
-            )}>
+            <GameIcon name={MEDAL_ICONS[dataIdx]} size={dataIdx === 0 ? 30 : dataIdx === 1 ? 24 : 20}
+              style={{ color: MEDAL_COLORS[dataIdx] }} />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center font-display font-black text-sm"
+              style={{ background: 'var(--void-bg-elevated)', border: `1px solid ${MEDAL_COLORS[dataIdx]}40`, color: MEDAL_COLORS[dataIdx] }}>
               {(entry.username?.[0] ?? '?').toUpperCase()}
             </div>
-
-            {/* Name */}
-            <p className="font-orbitron text-[9px] font-bold text-white/80 tracking-wider text-center truncate w-full px-1">
-              {entry.username || 'ANON'}
-            </p>
-
-            {/* Value */}
-            <p className={cn('font-mono text-[9px] text-center', TABS[0].color)}>
+            <p className="font-display text-[10px] font-bold text-center truncate w-full px-1"
+              style={{ color: 'var(--void-text-primary)' }}>{entry.username || 'ANON'}</p>
+            <p className="font-game text-[9px] chill-number" style={{ color: getValueColor(tab) }}>
               {getValue(entry, tab)}
             </p>
-
-            {/* Podium block */}
-            <div className={cn(
-              'w-full rounded-t-md glass border-t border-x',
-              PODIUM_H[pos],
-              pos === 0 ? 'border-neon-cyan/30' : pos === 1 ? 'border-yellow-400/30' : 'border-neon-purple/20',
-            )}
-              style={{
-                background: pos === 0
-                  ? 'linear-gradient(180deg, rgba(0,243,255,0.12) 0%, rgba(0,243,255,0.03) 100%)'
-                  : pos === 1
-                    ? 'linear-gradient(180deg, rgba(255,215,0,0.15) 0%, rgba(255,215,0,0.04) 100%)'
-                    : 'linear-gradient(180deg, rgba(157,0,255,0.1) 0%, rgba(157,0,255,0.02) 100%)',
-              }}
-            >
-              <p className="font-orbitron text-[9px] text-center mt-2 text-white/30">
-                #{pos + 1}
-              </p>
+            <div className={cn('w-full rounded-t-lg', PODIUM_H[dataIdx])}
+              style={{ background: `${MEDAL_COLORS[dataIdx]}15`, border: `1px solid ${MEDAL_COLORS[dataIdx]}25`, borderBottom: 'none' }}>
+              <p className="font-display text-[9px] text-center mt-2" style={{ color: `${MEDAL_COLORS[dataIdx]}60` }}>#{dataIdx + 1}</p>
             </div>
           </div>
         );
@@ -94,178 +60,115 @@ function Podium({ entries, tab }: { entries: LeaderboardEntry[]; tab: LBTab }) {
   );
 }
 
-// ── Single rank row ───────────────────────────────────────────────
 function RankRow({ entry, tab, isMe }: { entry: LeaderboardEntry; tab: LBTab; isMe: boolean }) {
-  const tabCfg = TABS.find(t => t.id === tab)!;
-
   return (
-    <div className={cn(
-      'glass rounded-xl px-4 py-3 flex items-center gap-3',
-      'border transition-all',
-      isMe
-        ? 'border-neon-cyan/50 bg-neon-cyan/5 shadow-[0_0_12px_rgba(0,243,255,0.15)]'
-        : 'border-white/5 hover:border-white/10',
-    )}>
-      <span className={cn('w-6 text-center shrink-0', entry.rank <= 3 ? MEDAL_COLOR[entry.rank - 1] : 'text-white/20')}>
+    <div className={cn('void-card-glass flex items-center gap-3 px-4 py-3 transition-all',
+      isMe && 'prism-corner')}
+      style={{ borderColor: isMe ? 'rgba(0,243,255,0.35)' : 'var(--void-border-primary)', background: isMe ? 'rgba(0,243,255,0.06)' : undefined }}>
+      <span className="w-6 flex items-center justify-center shrink-0">
         {entry.rank <= 3
-          ? <GameIcon name={MEDAL_ICONS[entry.rank - 1]} size={18} />
-          : <span className="font-orbitron text-sm font-bold">#{entry.rank}</span>
+          ? <GameIcon name={MEDAL_ICONS[entry.rank - 1]} size={18} style={{ color: MEDAL_COLORS[entry.rank - 1] }} />
+          : <span className="font-display text-xs" style={{ color: 'var(--void-text-muted)' }}>#{entry.rank}</span>
         }
       </span>
-
-      {/* Avatar */}
-      <div className={cn(
-        'w-8 h-8 rounded-full flex items-center justify-center shrink-0',
-        'glass border font-orbitron text-xs font-bold',
-        isMe ? 'border-neon-cyan/40 text-neon-cyan' : 'border-white/10 text-white/50',
-      )}>
+      <div className="w-8 h-8 rounded-full flex items-center justify-center font-display text-xs font-bold shrink-0"
+        style={{ background: 'var(--void-bg-elevated)', border: `1px solid ${isMe ? 'rgba(0,243,255,0.3)' : 'var(--void-border-primary)'}`, color: isMe ? 'var(--nv-cyan)' : 'var(--void-text-secondary)' }}>
         {(entry.username?.[0] ?? '?').toUpperCase()}
       </div>
-
-      {/* Name + rank */}
       <div className="flex-1 min-w-0">
-        <p className={cn(
-          'font-orbitron text-xs font-bold truncate',
-          isMe ? 'text-neon-cyan' : 'text-white/80',
-        )}>
+        <p className={cn('font-display text-xs font-bold truncate', isMe ? 'neon-cyan' : '')}
+          style={{ color: isMe ? undefined : 'var(--void-text-primary)' }}>
           {entry.username || 'ANON'}
-          {isMe && <span className="text-white/30 font-normal"> (you)</span>}
+          {isMe && <span className="font-game text-[9px] ml-1" style={{ color: 'var(--void-text-muted)' }}>(you)</span>}
         </p>
-        <p className="font-mono text-[9px] text-white/25 truncate">
+        <p className="font-game text-[9px] truncate" style={{ color: 'var(--void-text-muted)' }}>
           {entry.hqRank || 'Empty Lot'}
         </p>
       </div>
-
-      {/* Value */}
-      <span className={cn('font-mono text-xs font-bold shrink-0', tabCfg.color)}>
+      <span className="font-game text-xs font-bold chill-number shrink-0" style={{ color: getValueColor(tab) }}>
         {getValue(entry, tab)}
       </span>
     </div>
   );
 }
 
-// ── Daily reward banner ───────────────────────────────────────────
-function DailyRewardBanner() {
-  return (
-    <div className="glass rounded-xl px-4 py-3 border border-yellow-400/20 mb-4 flex items-start gap-3">
-      <span className="text-xl shrink-0">⚡</span>
-      <div>
-        <p className="font-orbitron text-xs text-yellow-400 font-bold tracking-wider mb-0.5">
-          DAILY REWARD ACTIVE
-        </p>
-        <p className="font-mono text-[10px] text-white/30 leading-relaxed">
-          Every day, top 3 Chills players earn bonus diamonds:
-          {' '}🥇 3💎 · 🥈 2💎 · 🥉 1💎
-        </p>
-      </div>
-    </div>
-  );
-}
-
-// ── Loading skeleton ──────────────────────────────────────────────
 function LoadingSkeleton() {
   return (
-    <div className="space-y-2 px-4">
+    <div className="px-4 space-y-2">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="glass rounded-xl h-14 animate-pulse border border-white/5"
-          style={{ opacity: 1 - i * 0.12 }} />
+        <div key={i} className="void-card h-14 animate-pulse" style={{ opacity: 1 - i * 0.12 }} />
       ))}
     </div>
   );
 }
 
-// ── Main component ────────────────────────────────────────────────
 export default function Leaderboard() {
   const [activeTab, setActiveTab] = useState<LBTab>('chills');
   const { chills, diamonds, trophies, loading, myUid } = useLeaderboard();
-
-  const dataMap: Record<LBTab, LeaderboardEntry[]> = {
-    chills,
-    diamonds,
-    trophies,
-  };
-  const entries = dataMap[activeTab];
-  const top3    = entries.slice(0, 3);
-  const tabCfg  = TABS.find(t => t.id === activeTab)!;
-
-  // Find my position
-  const myEntry = entries.find(e => e.uid === myUid);
+  const dataMap = { chills, diamonds, trophies };
+  const entries  = dataMap[activeTab];
+  const myEntry  = entries.find(e => e.uid === myUid);
+  const tabCfg   = TABS.find(t => t.id === activeTab)!;
 
   return (
-    <div className="pb-4">
-      {/* Header */}
-      <div className="px-4 pt-5 pb-3 text-center">
-        <h2 className="font-orbitron text-2xl font-black neon-cyan tracking-widest mb-1">
-          LEADERBOARD
-        </h2>
-        <p className="font-mono text-[10px] tracking-widest text-white/30">
-          LIVE GLOBAL RANKINGS
-        </p>
+    <div className="pb-6">
+      <div className="px-4 pt-5 pb-4">
+        <h2 className="font-display text-2xl font-black neon-cyan tracking-widest mb-1">LEADERBOARD</h2>
+        <p className="font-game text-xs" style={{ color: 'var(--void-text-muted)', letterSpacing: '0.1em' }}>LIVE GLOBAL RANKINGS</p>
       </div>
 
       {/* Sub-tabs */}
-      <div className="flex gap-2 px-4 mb-4">
+      <div className="flex gap-2 px-4 mb-1">
         {TABS.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setActiveTab(t.id)}
-            className={cn(
-              'flex-1 py-2.5 rounded-xl font-orbitron text-[10px] font-bold tracking-wider flex items-center justify-center gap-1.5',
-              'border transition-all duration-150 active:scale-95',
-              activeTab === t.id
-                ? `border-current bg-white/5 ${t.color}`
-                : 'border-white/10 bg-white/5 text-white/30 hover:text-white/50',
-            )}
-          >
-            <GameIcon name={t.icon} size={13} />
-            {t.label}
+          <button key={t.id} onClick={() => setActiveTab(t.id)}
+            className={cn('void-btn void-btn-sm flex-1 gap-1.5',
+              activeTab === t.id ? t.color : 'void-btn-ghost')}>
+            <GameIcon name={t.icon} size={12} />{t.label}
           </button>
         ))}
       </div>
 
-      {/* Daily reward (only on chills tab) */}
+      {/* Daily reward */}
       {activeTab === 'chills' && (
-        <div className="px-4">
-          <DailyRewardBanner />
+        <div className="px-4 my-3">
+          <div className="void-card-glass p-3 flex items-start gap-3"
+            style={{ borderColor: 'rgba(251,191,36,0.2)' }}>
+            <GameIcon name="game-icons:podium" size={18} style={{ color: '#fbbf24', flexShrink: 0 }} />
+            <div>
+              <p className="font-display text-xs font-bold" style={{ color: '#fbbf24' }}>DAILY REWARD ACTIVE</p>
+              <p className="font-game text-[9px] mt-0.5" style={{ color: 'var(--void-text-secondary)' }}>
+                Top 3 earn daily Diamonds: 🥇 3💎 · 🥈 2💎 · 🥉 1💎
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
-      {loading ? (
-        <LoadingSkeleton />
-      ) : entries.length === 0 ? (
+      {loading ? <LoadingSkeleton /> : entries.length === 0 ? (
         <div className="text-center py-12 px-4">
-          <div className="text-4xl mb-3">📡</div>
-          <p className="font-orbitron text-sm text-white/30">NO SIGNAL YET</p>
-          <p className="font-mono text-[10px] text-white/15 mt-1">Be the first to appear here</p>
+          <GameIcon name="game-icons:radar-dish" size={44} className="mx-auto mb-3" style={{ color: 'var(--void-text-muted)' }} />
+          <p className="font-display text-sm" style={{ color: 'var(--void-text-tertiary)' }}>NO SIGNAL YET</p>
+          <p className="font-game text-xs mt-1" style={{ color: 'var(--void-text-muted)' }}>Be the first to appear here</p>
         </div>
       ) : (
         <>
-          {/* Podium */}
-          {top3.length >= 2 && (
-            <Podium entries={entries} tab={activeTab} />
-          )}
+          <Podium entries={entries} tab={activeTab} />
 
           {myEntry && myEntry.rank > 10 && (
             <div className="px-4 mb-3">
-              <div className="glass rounded-xl px-4 py-2.5 border border-neon-cyan/30 flex items-center gap-3">
-                <span className="font-mono text-[10px] text-white/30">YOUR RANK</span>
-                <span className="font-orbitron font-black text-lg neon-cyan">#{myEntry.rank}</span>
-                <span className={cn('font-mono text-xs ml-auto', tabCfg.color)}>
+              <div className="void-card-glass flex items-center gap-3 px-4 py-2.5 prism-corner">
+                <span className="font-game text-xs" style={{ color: 'var(--void-text-muted)' }}>YOUR RANK</span>
+                <span className="font-display font-black text-xl neon-cyan">#{myEntry.rank}</span>
+                <span className="font-game text-xs ml-auto chill-number" style={{ color: getValueColor(activeTab) }}>
                   {getValue(myEntry, activeTab)}
                 </span>
               </div>
             </div>
           )}
 
-          {/* Full list (starts from rank 4, top 3 already in podium) */}
-          <div className="px-4 space-y-2">
+          <div className="px-4 space-y-1.5">
             {entries.map(entry => (
-              <RankRow
-                key={entry.uid}
-                entry={entry}
-                tab={activeTab}
-                isMe={entry.uid === myUid}
-              />
+              <RankRow key={entry.uid} entry={entry} tab={activeTab} isMe={entry.uid === myUid} />
             ))}
           </div>
         </>
