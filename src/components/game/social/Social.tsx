@@ -93,7 +93,7 @@ function GiftsTab() {
               {(['chills','diamonds'] as const).map(c => (
                 <button key={c} onClick={() => setCurrency(c)}
                   className={cn('void-btn void-btn-md', currency === c ? (c === 'chills' ? 'void-btn-glow' : 'void-btn-accent') : 'void-btn-ghost')}>
-                  <GameIcon name={c === 'chills' ? 'game-icons:ice-cube' : 'game-icons:diamond'} size={14} />
+                  <GameIcon name={c === 'chills' ? 'cur:chills' : 'cur:diamonds'} size={14} />
                 </button>
               ))}
             </div>
@@ -167,7 +167,7 @@ function FriendsTab() {
       {requests.length > 0 && (
         <div className="void-card-glass p-4" style={{ borderColor: 'rgba(251,191,36,0.25)' }}>
           <p className="void-card-title text-sm flex items-center gap-2 mb-3" style={{ color: '#fbbf24' }}>
-            <GameIcon name="lucide:bell" size={14} /> PENDING ({requests.length})
+            <GameIcon name="ui:bell" size={14} /> PENDING ({requests.length})
           </p>
           <div className="space-y-2">
             {requests.map(r => (
