@@ -1,5 +1,9 @@
 import React from 'react';
-import StyleguideBoard from './components/game/styleguide/StyleguideBoard';
+import { GameProvider } from './context/GameContext';
+import { ToastProvider } from './context/ToastContext';
+import { useFirebase }  from './hooks/useFirebase';
+import AuthScreen       from './components/game/modals/PhoneAuth';
+import GameLayout       from './components/game/layout/GameLayout';
 import './index.css';
 
 // ── Error Boundary ────────────────────────────────────────────────
@@ -29,13 +33,33 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+// ── Auth gate ─────────────────────────────────────────────────────
+function AuthGate() {
+  const { user, loading } = useFirebase();
+
+  if (loading) {
+    return (
+      <div style={{ background: '#020614', minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ fontFamily: 'monospace', color: '#e86a38', fontSize: 14, letterSpacing: '0.1em', animation: 'pulse 1.5s infinite' }}>
+          INITIALISING NULL.RUN...
+        </p>
+      </div>
+    );
+  }
+
+  if (!user) return <AuthScreen />;
+  return <GameLayout />;
+}
+
 // ── Root ──────────────────────────────────────────────────────────
 export default function App() {
   return (
     <ErrorBoundary>
-      <div style={{ background: 'var(--void-bg-primary)', minHeight: '100dvh' }}>
-        <StyleguideBoard />
-      </div>
+      <ToastProvider>
+        <GameProvider>
+          <AuthGate />
+        </GameProvider>
+      </ToastProvider>
     </ErrorBoundary>
   );
 }
