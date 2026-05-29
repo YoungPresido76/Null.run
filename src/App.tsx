@@ -4,6 +4,7 @@ import { ToastProvider } from './context/ToastContext';
 import { useFirebase }  from './hooks/useFirebase';
 import AuthScreen       from './components/game/modals/PhoneAuth';
 import GameLayout       from './components/game/layout/GameLayout';
+import StyleguideBoard  from './components/game/styleguide/StyleguideBoard';
 import './index.css';
 
 // ── Error Boundary ────────────────────────────────────────────────
@@ -53,6 +54,19 @@ function AuthGate() {
 
 // ── Root ──────────────────────────────────────────────────────────
 export default function App() {
+  // Check if styleguide route is requested
+  const isStyleguideRoute = window.location.pathname === '/styleguide';
+
+  if (isStyleguideRoute) {
+    return (
+      <ErrorBoundary>
+        <div style={{ background: 'var(--void-bg-primary)', minHeight: '100dvh' }}>
+          <StyleguideBoard />
+        </div>
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <ErrorBoundary>
       <ToastProvider>

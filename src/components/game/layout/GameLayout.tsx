@@ -8,11 +8,12 @@ import HQPanel       from '../hq/HQPanel';
 import StakePanel    from '../staking/StakePanel';
 import Market        from '../market/Market';
 import Social        from '../social/Social';
+import StyleguideBoard from '../styleguide/StyleguideBoard';
 import SettingsModal from '../modals/SettingsModal';
 import { cn }        from '@/lib/utils';
 import { GameIcon, NAV_ICONS } from '@/lib/icons';
 
-export type TabId = 'core' | 'produce' | 'rank' | 'social' | 'market' | 'stake' | 'hq' | 'achieve';
+export type TabId = 'core' | 'produce' | 'rank' | 'social' | 'market' | 'stake' | 'hq' | 'achieve' | 'styleguide';
 
 // ── Animated background ───────────────────────────────────────────
 function GameBg() {
@@ -44,14 +45,15 @@ function GameBg() {
 // ── Tab content router ────────────────────────────────────────────
 function TabContent({ tab }: { tab: TabId }) {
   switch (tab) {
-    case 'core':    return <ChillOrb />;
-    case 'produce': return <ProducerPanel />;
-    case 'rank':    return <Leaderboard />;
-    case 'social':  return <Social />;
-    case 'market':  return <Market />;
-    case 'stake':   return <StakePanel />;
-    case 'hq':      return <HQPanel />;
-    case 'achieve': return <Achievements />;
+    case 'core':       return <ChillOrb />;
+    case 'produce':    return <ProducerPanel />;
+    case 'rank':       return <Leaderboard />;
+    case 'social':     return <Social />;
+    case 'market':     return <Market />;
+    case 'stake':      return <StakePanel />;
+    case 'hq':         return <HQPanel />;
+    case 'achieve':    return <Achievements />;
+    case 'styleguide': return <StyleguideBoard />;
   }
 }
 
@@ -81,10 +83,11 @@ function SideActions({ onMenu, onSettings }: { onMenu: () => void; onSettings: (
 
 // ── Hamburger drawer ──────────────────────────────────────────────
 const DRAWER_TABS: { id: TabId; label: string; icon: string; desc: string }[] = [
-  { id: 'market',  label: 'MARKET',       icon: NAV_ICONS.market,  desc: 'NFTs · Artefacts · Trade'   },
-  { id: 'stake',   label: 'STAKE',        icon: NAV_ICONS.stake,   desc: 'Stake Chills & Diamonds'    },
-  { id: 'hq',      label: 'NULL HQ',      icon: NAV_ICONS.hq,      desc: 'Build your headquarters'   },
-  { id: 'achieve', label: 'ACHIEVEMENTS', icon: NAV_ICONS.achieve, desc: 'Track your milestones'      },
+  { id: 'market',     label: 'MARKET',       icon: NAV_ICONS.market,  desc: 'NFTs · Artefacts · Trade'   },
+  { id: 'stake',      label: 'STAKE',        icon: NAV_ICONS.stake,   desc: 'Stake Chills & Diamonds'    },
+  { id: 'hq',         label: 'NULL HQ',      icon: NAV_ICONS.hq,      desc: 'Build your headquarters'   },
+  { id: 'achieve',    label: 'ACHIEVEMENTS', icon: NAV_ICONS.achieve, desc: 'Track your milestones'      },
+  { id: 'styleguide', label: 'STYLEGUIDE',   icon: NAV_ICONS.achieve, desc: 'Design system reference'    },
 ];
 
 function MenuDrawer({ open, onClose, active, onChange }: {
