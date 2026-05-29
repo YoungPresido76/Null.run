@@ -8,12 +8,12 @@ import HQPanel       from '../hq/HQPanel';
 import StakePanel    from '../staking/StakePanel';
 import Market        from '../market/Market';
 import Social        from '../social/Social';
-import StyleguideBoard from '../styleguide/StyleguideBoard';
+
 import SettingsModal from '../modals/SettingsModal';
 import { cn }        from '@/lib/utils';
 import { GameIcon, NAV_ICONS } from '@/lib/icons';
 
-export type TabId = 'core' | 'produce' | 'rank' | 'social' | 'market' | 'stake' | 'hq' | 'achieve' | 'styleguide';
+export type TabId = 'core' | 'produce' | 'rank' | 'social' | 'market' | 'stake' | 'hq' | 'achieve';
 
 // ── Animated background ───────────────────────────────────────────
 function GameBg() {
@@ -22,19 +22,19 @@ function GameBg() {
       <div className="absolute inset-0" style={{ background: 'var(--void-bg-primary)' }} />
       <div className="absolute rounded-full" style={{
         width: 600, height: 600, left: -150, top: -200, opacity: 0.12,
-        background: 'radial-gradient(circle, #3366ff, transparent 70%)',
+        background: 'radial-gradient(circle, #d97548, transparent 70%)',
         filter: 'blur(80px)', animation: 'orbDrift1 22s ease-in-out infinite alternate',
       }} />
       <div className="absolute rounded-full" style={{
         width: 500, height: 500, right: -100, bottom: -100, opacity: 0.08,
-        background: 'radial-gradient(circle, #00f3ff, transparent 70%)',
+        background: 'radial-gradient(circle, #e86a38, transparent 70%)',
         filter: 'blur(80px)', animation: 'orbDrift2 18s ease-in-out infinite alternate',
       }} />
       <div className="absolute inset-0" style={{
         opacity: 0.35,
         backgroundImage: `
-          linear-gradient(rgba(0,243,255,0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,243,255,0.04) 1px, transparent 1px)`,
+          linear-gradient(rgba(232,106,56,0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(232,106,56,0.04) 1px, transparent 1px)`,
         backgroundSize: '52px 52px',
         animation: 'gridShift 20s linear infinite',
       }} />
@@ -53,7 +53,6 @@ function TabContent({ tab }: { tab: TabId }) {
     case 'stake':      return <StakePanel />;
     case 'hq':         return <HQPanel />;
     case 'achieve':    return <Achievements />;
-    case 'styleguide': return <StyleguideBoard />;
   }
 }
 
@@ -83,11 +82,10 @@ function SideActions({ onMenu, onSettings }: { onMenu: () => void; onSettings: (
 
 // ── Hamburger drawer ──────────────────────────────────────────────
 const DRAWER_TABS: { id: TabId; label: string; icon: string; desc: string }[] = [
-  { id: 'market',     label: 'MARKET',       icon: NAV_ICONS.market,  desc: 'NFTs · Artefacts · Trade'   },
-  { id: 'stake',      label: 'STAKE',        icon: NAV_ICONS.stake,   desc: 'Stake Chills & Diamonds'    },
-  { id: 'hq',         label: 'NULL HQ',      icon: NAV_ICONS.hq,      desc: 'Build your headquarters'   },
-  { id: 'achieve',    label: 'ACHIEVEMENTS', icon: NAV_ICONS.achieve, desc: 'Track your milestones'      },
-  { id: 'styleguide', label: 'STYLEGUIDE',   icon: NAV_ICONS.achieve, desc: 'Design system reference'    },
+  { id: 'market',  label: 'MARKET',       icon: NAV_ICONS.market,  desc: 'NFTs · Artefacts · Trade'   },
+  { id: 'stake',   label: 'STAKE',        icon: NAV_ICONS.stake,   desc: 'Stake Chills & Diamonds'    },
+  { id: 'hq',      label: 'NULL HQ',      icon: NAV_ICONS.hq,      desc: 'Build your headquarters'   },
+  { id: 'achieve', label: 'ACHIEVEMENTS', icon: NAV_ICONS.achieve, desc: 'Track your milestones'      },
 ];
 
 function MenuDrawer({ open, onClose, active, onChange }: {

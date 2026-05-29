@@ -6,30 +6,30 @@
    VOID UI KIT — design tokens (remapped to Neon Verse palette)
    ═══════════════════════════════════════════════════════════════════ */
 :root {
-  /* ── Primary: Neon Cyan (replaces Void's blue) ── */
-  --void-primary-50:   #ecfeff;
-  --void-primary-100:  #cffafe;
-  --void-primary-200:  #a5f3fc;
-  --void-primary-300:  #67e8f9;
-  --void-primary-400:  #22d3ee;
-  --void-primary-500:  #00f3ff;
-  --void-primary-600:  #00c8d4;
-  --void-primary-700:  #0e7490;
-  --void-primary-800:  #155e75;
-  --void-primary-900:  #164e63;
-  --void-primary-950:  #020b10;
+  /* ── Primary: Orange/Rust (neo-skeuomorphic theme) ── */
+  --void-primary-50:   #fef5f2;
+  --void-primary-100:  #fdebe5;
+  --void-primary-200:  #fad3c4;
+  --void-primary-300:  #f6a887;
+  --void-primary-400:  #f28250;
+  --void-primary-500:  #e86a38;
+  --void-primary-600:  #d97548;
+  --void-primary-700:  #c97447;
+  --void-primary-800:  #ab5a35;
+  --void-primary-900:  #8b472a;
+  --void-primary-950:  #5c2e1a;
 
-  /* ── Accent: Neon Magenta (replaces Void's teal) ── */
-  --void-accent-50:    #fdf2f8;
-  --void-accent-100:   #fce7f3;
-  --void-accent-200:   #fbcfe8;
-  --void-accent-300:   #f9a8d4;
-  --void-accent-400:   #ff6ec7;
-  --void-accent-500:   #ff00aa;
-  --void-accent-600:   #c4006e;
-  --void-accent-700:   #9d0057;
-  --void-accent-800:   #800047;
-  --void-accent-900:   #60003a;
+  /* ── Accent: Rust Orange (deeper tone) ── */
+  --void-accent-50:    #fef5f2;
+  --void-accent-100:   #fdebe5;
+  --void-accent-200:   #fad3c4;
+  --void-accent-300:   #f6a887;
+  --void-accent-400:   #f28250;
+  --void-accent-500:   #e86a38;
+  --void-accent-600:   #d97548;
+  --void-accent-700:   #c97447;
+  --void-accent-800:   #ab5a35;
+  --void-accent-900:   #8b472a;
 
   /* ── Semantic ── */
   --void-success-400: #4ade80;
@@ -70,9 +70,9 @@
   --void-text-muted:     #3a5060;
 
   /* ── Borders ── */
-  --void-border-primary:   rgba(0,243,255,0.12);
-  --void-border-secondary: rgba(0,243,255,0.22);
-  --void-border-focus:     #00f3ff;
+  --void-border-primary:   rgba(232,106,56,0.12);
+  --void-border-secondary: rgba(232,106,56,0.22);
+  --void-border-focus:     #e86a38;
 
   /* ── Typography ── */
   --void-font-sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -605,7 +605,7 @@
 
 /* ═══════════════════════════════════════════════════════════════════
    NAV ACTIVE STATE
-   ═══════════════════════════════════════════════════════════════════ */
+   ════════════��══════════════════════════════════════════════════════ */
 
   .void-nav-active {
     background: rgba(0,243,255,0.1);

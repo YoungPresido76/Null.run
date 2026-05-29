@@ -19,7 +19,7 @@ export default function GameHeader({ onSettingsOpen }: Props) {
 
       {/* HUD sweep */}
       <div className="hud-sweep-line rounded-none" style={{ position:'absolute', inset:0, overflow:'hidden', pointerEvents:'none' }}>
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(90deg,transparent,rgba(0,243,255,0.04),transparent)', animation:'sweep 8s linear infinite' }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(90deg,transparent,rgba(232,106,56,0.04),transparent)', animation:'sweep 8s linear infinite' }} />
       </div>
 
       {/* Top row: username + brand + settings */}
@@ -50,7 +50,7 @@ export default function GameHeader({ onSettingsOpen }: Props) {
           <p className="font-display font-black text-2xl chill-number leading-none neon-cyan">{fmt(state.chills)}</p>
           <div className="flex items-center gap-1 mt-0.5">
             <GameIcon name="ui:activity" size={8} style={{ color: 'var(--void-primary-500)', opacity: 0.5 }} />
-            <span className="font-game text-xs" style={{ color: 'rgba(0,243,255,0.5)' }}>{fmt(cps)}/s</span>
+            <span className="font-game text-xs" style={{ color: 'rgba(232,106,56,0.5)' }}>{fmt(cps)}/s</span>
           </div>
         </div>
 

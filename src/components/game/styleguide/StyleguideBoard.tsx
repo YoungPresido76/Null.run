@@ -7,8 +7,8 @@ export default function StyleguideBoard() {
       {/* ══════════════════════════════════════════════════════════════
           HEADER SECTION
           ══════════════════════════════════════════════════════════════ */}
-      <div className="border rounded-3xl p-8" style={{ borderColor: 'rgba(0,243,255,0.2)', background: 'rgba(0,243,255,0.03)' }}>
-        <h1 className="font-display text-4xl font-bold tracking-widest mb-2 neon-cyan">
+      <div className="border rounded-3xl p-8" style={{ borderColor: 'rgba(232,106,56,0.2)', background: 'rgba(232,106,56,0.03)' }}>
+        <h1 className="font-display text-4xl font-bold tracking-widest mb-2" style={{ color: 'var(--void-primary-400)' }}>
           NEO-SKEUOMORPHIC TACTILE SYSTEM
         </h1>
         <p className="font-game text-sm tracking-widest" style={{ color: 'var(--void-text-secondary)' }}>
@@ -38,7 +38,7 @@ export default function StyleguideBoard() {
               <div key={i} className="flex gap-3">
                 <div className="w-12 h-12 rounded-lg flex-shrink-0" style={{
                   background: ['#2a3d4f', '#3d4f5f', '#1a2d37', '#1d2b37'][i],
-                  border: '1px solid rgba(0,243,255,0.1)',
+                  border: '1px solid rgba(232,106,56,0.1)',
                 }} />
                 <div>
                   <p className="font-game text-xs font-bold" style={{ color: 'var(--void-text-primary)' }}>{token.name}</p>
@@ -120,7 +120,7 @@ export default function StyleguideBoard() {
             ].map((border, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div className="flex-1 h-12" style={{
-                  borderTop: `${border.size}px solid rgba(0,243,255,0.5)`,
+                  borderTop: `${border.size}px solid rgba(232,106,56,0.5)`,
                 }} />
                 <p className="text-xs font-game" style={{ color: 'var(--void-text-muted)' }}>{border.name}</p>
               </div>
@@ -145,8 +145,8 @@ export default function StyleguideBoard() {
                   className="h-12 mb-2 border"
                   style={{
                     borderRadius: rad.size,
-                    borderColor: 'rgba(0,243,255,0.3)',
-                    background: 'rgba(0,243,255,0.05)',
+                    borderColor: 'rgba(232,106,56,0.3)',
+                    background: 'rgba(232,106,56,0.05)',
                   }}
                 />
                 <p className="text-xs font-game" style={{ color: 'var(--void-text-muted)' }}>{rad.name}</p>
@@ -171,7 +171,7 @@ export default function StyleguideBoard() {
             className="w-full px-4 py-3 rounded-lg border font-game text-sm"
             style={{
               background: 'rgba(13,31,60,0.5)',
-              borderColor: 'rgba(0,243,255,0.3)',
+              borderColor: 'rgba(232,106,56,0.3)',
               color: 'var(--void-text-primary)',
             }}
           />
@@ -217,8 +217,8 @@ export default function StyleguideBoard() {
           <div className="grid grid-cols-5 gap-3">
             {['search', 'settings', 'user', 'heart', 'check'].map((icon, i) => (
               <div key={i} className="flex items-center justify-center h-12 border rounded" style={{
-                borderColor: 'rgba(0,243,255,0.2)',
-                background: 'rgba(0,243,255,0.05)',
+                borderColor: 'rgba(232,106,56,0.2)',
+                background: 'rgba(232,106,56,0.05)',
               }}>
                 <span style={{ color: 'rgba(201,106,54,0.7)' }}>◉</span>
               </div>
@@ -240,7 +240,7 @@ export default function StyleguideBoard() {
             <h3 className="font-game text-xs tracking-wider mb-3 font-bold" style={{ color: 'var(--void-text-secondary)' }}>
               TABS
             </h3>
-            <div className="flex border-b" style={{ borderColor: 'rgba(0,243,255,0.1)' }}>
+            <div className="flex border-b" style={{ borderColor: 'rgba(232,106,56,0.1)' }}>
               {['Dashboard', 'Projects', 'Settings'].map((tab, i) => (
                 <button key={i} className="px-4 py-2 font-game text-xs font-bold tracking-wider" style={{
                   color: i === 0 ? 'rgba(201,106,54,0.8)' : 'var(--void-text-secondary)',
@@ -279,7 +279,7 @@ export default function StyleguideBoard() {
         </h3>
         <div className="flex items-center gap-2 justify-center">
           <button className="px-3 py-2 rounded border font-game text-xs" style={{
-            borderColor: 'rgba(0,243,255,0.2)',
+            borderColor: 'rgba(232,106,56,0.2)',
             color: 'var(--void-text-secondary)',
           }}>
             Previous
@@ -290,7 +290,7 @@ export default function StyleguideBoard() {
               className="w-8 h-8 rounded border font-game text-xs font-bold"
               style={{
                 background: i === 1 ? 'rgba(201,106,54,0.8)' : 'transparent',
-                borderColor: 'rgba(0,243,255,0.2)',
+                borderColor: 'rgba(232,106,56,0.2)',
                 color: i === 1 ? '#fff' : 'var(--void-text-secondary)',
               }}
             >
@@ -298,7 +298,7 @@ export default function StyleguideBoard() {
             </button>
           ))}
           <button className="px-3 py-2 rounded border font-game text-xs" style={{
-            borderColor: 'rgba(0,243,255,0.2)',
+            borderColor: 'rgba(232,106,56,0.2)',
             color: 'var(--void-text-secondary)',
           }}>
             Next
@@ -318,8 +318,8 @@ export default function StyleguideBoard() {
           <div className="space-y-2">
             {['List Item', 'List Item', 'List Item'].map((item, i) => (
               <div key={i} className="px-4 py-3 border rounded flex justify-between items-center" style={{
-                borderColor: 'rgba(0,243,255,0.15)',
-                background: 'rgba(0,243,255,0.03)',
+                borderColor: 'rgba(232,106,56,0.15)',
+                background: 'rgba(232,106,56,0.03)',
               }}>
                 <span className="font-game text-xs" style={{ color: 'var(--void-text-primary)' }}>{item}</span>
                 <span className="text-xs">›</span>
@@ -359,14 +359,14 @@ export default function StyleguideBoard() {
             MODAL CONFIRMATION
           </h3>
           <div className="border rounded-2xl p-4" style={{
-            borderColor: 'rgba(0,243,255,0.15)',
+            borderColor: 'rgba(232,106,56,0.15)',
             background: 'rgba(0,0,0,0.3)',
           }}>
             <p className="font-game text-xs font-bold mb-3" style={{ color: 'var(--void-text-primary)' }}>Delete Account?</p>
             <p className="font-game text-xs mb-4" style={{ color: 'var(--void-text-muted)' }}>This action cannot be undone.</p>
             <div className="flex gap-2">
               <button className="flex-1 py-2 px-3 rounded border font-game text-xs" style={{
-                borderColor: 'rgba(0,243,255,0.2)',
+                borderColor: 'rgba(232,106,56,0.2)',
                 color: 'var(--void-text-primary)',
               }}>
                 Cancel
@@ -389,7 +389,7 @@ export default function StyleguideBoard() {
             </h3>
             {['File Saved', 'Upload Complete', 'New Message'].map((toast, i) => (
               <div key={i} className="flex items-center justify-between px-3 py-2 rounded border mb-2" style={{
-                borderColor: 'rgba(0,243,255,0.15)',
+                borderColor: 'rgba(232,106,56,0.15)',
                 background: 'rgba(0,0,0,0.4)',
               }}>
                 <p className="font-game text-xs" style={{ color: 'var(--void-text-primary)' }}>{toast}</p>
@@ -422,15 +422,15 @@ export default function StyleguideBoard() {
             EMPTY STATE
           </h3>
           <div className="border rounded-2xl p-8 text-center" style={{
-            borderColor: 'rgba(0,243,255,0.15)',
-            background: 'rgba(0,243,255,0.03)',
+            borderColor: 'rgba(232,106,56,0.15)',
+            background: 'rgba(232,106,56,0.03)',
           }}>
             <p className="text-4xl mb-2">⊗</p>
             <p className="font-game text-xs mb-3" style={{ color: 'var(--void-text-primary)' }}>No Items Found</p>
             <button className="px-3 py-1 text-xs rounded font-game" style={{
-              background: 'rgba(0,243,255,0.1)',
+              background: 'rgba(232,106,56,0.1)',
               color: 'var(--void-text-secondary)',
-              border: '1px solid rgba(0,243,255,0.2)',
+              border: '1px solid rgba(232,106,56,0.2)',
             }}>
               Add New Item
             </button>
@@ -459,7 +459,7 @@ export default function StyleguideBoard() {
             LINEAR PROGRESS
           </h3>
           <div className="space-y-2">
-            <div className="h-2 rounded-full overflow-hidden" style={{ background: 'rgba(0,243,255,0.1)' }}>
+            <div className="h-2 rounded-full overflow-hidden" style={{ background: 'rgba(232,106,56,0.1)' }}>
               <div className="h-full w-2/3 rounded-full" style={{
                 background: 'linear-gradient(90deg, rgba(201,106,54,0.8), rgba(255,165,0,0.6))',
               }} />
@@ -474,7 +474,7 @@ export default function StyleguideBoard() {
           </h3>
           <div className="flex items-center justify-center h-12">
             <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{
-              borderColor: 'rgba(0,243,255,0.2)',
+              borderColor: 'rgba(232,106,56,0.2)',
               borderTopColor: 'rgba(201,106,54,0.8)',
             }} />
           </div>
