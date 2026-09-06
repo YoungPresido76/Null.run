@@ -19,23 +19,10 @@ function GameBg() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
       <div className="absolute inset-0" style={{ background: 'var(--void-bg-primary)' }} />
-      <div className="absolute rounded-full" style={{
-        width: 600, height: 600, left: -150, top: -200, opacity: 0.12,
-        background: 'radial-gradient(circle, #3366ff, transparent 70%)',
-        filter: 'blur(80px)', animation: 'orbDrift1 22s ease-in-out infinite alternate',
-      }} />
-      <div className="absolute rounded-full" style={{
-        width: 500, height: 500, right: -100, bottom: -100, opacity: 0.08,
-        background: 'radial-gradient(circle, #00f3ff, transparent 70%)',
-        filter: 'blur(80px)', animation: 'orbDrift2 18s ease-in-out infinite alternate',
-      }} />
       <div className="absolute inset-0" style={{
-        opacity: 0.35,
-        backgroundImage: `
-          linear-gradient(rgba(0,243,255,0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,243,255,0.04) 1px, transparent 1px)`,
-        backgroundSize: '52px 52px',
-        animation: 'gridShift 20s linear infinite',
+        opacity: 0.18,
+        backgroundImage: 'radial-gradient(rgba(226,216,190,0.18) 0.6px, transparent 0.6px)',
+        backgroundSize: '18px 18px',
       }} />
     </div>
   );
@@ -197,7 +184,7 @@ export default function GameLayout() {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   return (
-    <div className="relative flex flex-col overflow-hidden" style={{ height: '100dvh' }}>
+    <div className="relative flex flex-col overflow-hidden bg-[var(--void-bg-primary)]" style={{ height: '100dvh' }}>
       <GameBg />
 
       {/* Header */}

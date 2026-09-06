@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { GameIcon, NAV_ICONS } from '@/lib/icons';
 
 export type TabId =
   | 'core'
@@ -10,15 +11,15 @@ export type TabId =
   | 'hq'
   | 'achieve';
 
-export const TABS: { id: TabId; label: string; emoji: string }[] = [
-  { id: 'core',    label: 'CORE',    emoji: '∅'  },
-  { id: 'produce', label: 'PRODUCE', emoji: '⚡' },
-  { id: 'rank',    label: 'RANK',    emoji: '🏆' },
-  { id: 'social',  label: 'SOCIAL',  emoji: '👥' },
-  { id: 'market',  label: 'MARKET',  emoji: '🎴' },
-  { id: 'stake',   label: 'STAKE',   emoji: '📈' },
-  { id: 'hq',      label: 'HQ',      emoji: '🏗️' },
-  { id: 'achieve', label: 'ACHIEVE', emoji: '🏅' },
+export const TABS: { id: TabId; label: string; icon: string }[] = [
+  { id: 'core',    label: 'CORE',    icon: NAV_ICONS.core },
+  { id: 'produce', label: 'PRODUCE', icon: NAV_ICONS.produce },
+  { id: 'rank',    label: 'RANK',    icon: NAV_ICONS.rank },
+  { id: 'social',  label: 'SOCIAL',  icon: NAV_ICONS.social },
+  { id: 'market',  label: 'MARKET',  icon: NAV_ICONS.market },
+  { id: 'stake',   label: 'STAKE',   icon: NAV_ICONS.stake },
+  { id: 'hq',      label: 'HQ',      icon: NAV_ICONS.hq },
+  { id: 'achieve', label: 'ACHIEVE', icon: NAV_ICONS.achieve },
 ];
 
 interface Props {
@@ -48,16 +49,13 @@ export default function TabNav({ active, onChange }: Props) {
                   : 'opacity-40 hover:opacity-70',
               )}
             >
-              <span className={cn(
-                'text-lg leading-none',
-                isActive && tab.id === 'core' && 'neon-cyan',
-              )}>
-                {tab.emoji}
-              </span>
-              <span className={cn(
-                'font-orbitron text-[8px] font-bold tracking-widest leading-none',
-                isActive ? 'neon-cyan' : 'text-white/50',
-              )}>
+              <GameIcon
+                name={tab.icon}
+                size={18}
+                style={{ color: isActive ? 'var(--void-primary-300)' : 'var(--void-text-tertiary)' }}
+              />
+              <span className="font-display text-[8px] font-bold tracking-widest leading-none"
+                style={{ color: isActive ? 'var(--void-primary-300)' : 'var(--void-text-tertiary)' }}>
                 {tab.label}
               </span>
               {isActive && (

@@ -17,12 +17,7 @@ export default function GameHeader({ onSettingsOpen }: Props) {
         borderBottom:  '1px solid var(--void-border-primary)',
       }}>
 
-      {/* HUD sweep */}
-      <div className="hud-sweep-line rounded-none" style={{ position:'absolute', inset:0, overflow:'hidden', pointerEvents:'none' }}>
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(90deg,transparent,rgba(0,243,255,0.04),transparent)', animation:'sweep 8s linear infinite' }} />
-      </div>
-
-      {/* Top row: username + brand + settings */}
+      {/* Top row: identity + brand + settings */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1.5">
           <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'var(--nv-green)' }} />
@@ -47,7 +42,7 @@ export default function GameHeader({ onSettingsOpen }: Props) {
             <GameIcon name={CURRENCY_ICONS.chills} size={10} style={{ color: 'var(--void-primary-500)', opacity: 0.7 }} />
             <span className="void-stat-label" style={{ marginBottom: 0 }}>CHILLS</span>
           </div>
-          <p className="font-display font-black text-2xl chill-number leading-none neon-cyan">{fmt(state.chills)}</p>
+          <p className="font-display font-black text-2xl chill-number leading-none" style={{ color: 'var(--void-primary-300)' }}>{fmt(state.chills)}</p>
           <div className="flex items-center gap-1 mt-0.5">
             <GameIcon name="ui:activity" size={8} style={{ color: 'var(--void-primary-500)', opacity: 0.5 }} />
             <span className="font-game text-xs" style={{ color: 'rgba(0,243,255,0.5)' }}>{fmt(cps)}/s</span>
@@ -74,7 +69,7 @@ export default function GameHeader({ onSettingsOpen }: Props) {
             <GameIcon name={CURRENCY_ICONS.diamonds} size={10} style={{ color: 'var(--void-accent-400)', opacity: 0.7 }} />
             <span className="void-stat-label" style={{ marginBottom: 0 }}>DIAMONDS</span>
           </div>
-          <p className="font-display font-black text-2xl chill-number leading-none neon-magenta">{fmt(state.diamonds)}</p>
+          <p className="font-display font-black text-2xl chill-number leading-none" style={{ color: 'var(--void-accent-300)' }}>{fmt(state.diamonds)}</p>
           <div className="flex items-center gap-1 justify-end mt-0.5">
             <GameIcon name={CURRENCY_ICONS.nft} size={8} style={{ color: 'var(--void-accent-400)', opacity: 0.5 }} />
             <span className="font-game text-xs" style={{ color: 'rgba(255,0,170,0.5)' }}>{state.ownedNfts.length} NFTs</span>

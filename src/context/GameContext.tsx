@@ -168,11 +168,14 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     return () => saveGame(stateRef.current);
   }, []);
 
-  // Achievement checker runs after every state change
+  // Achievement checks must also react to producer and HQ purchases, not only currency changes.
+  const producerCount = Object.values(state.producers).reduce((total, producer) => total + producer.count, 0);
+  const hqLevel = Object.values(state.hqRooms).reduce((total, room) => total + room.level, 0);
+
   useEffect(() => {
     const newly = checkAchievements(state);
     newly.forEach(id => dispatch({ type: 'UNLOCK_ACH', id }));
-  }, [state.totalChills, state.ownedNfts.length, state.diamonds]);
+  }, [state.totalChills, state.ownedNfts.length, state.diamonds, producerCount, hqLevel]);
 
   const cps = getCPS(state);
 

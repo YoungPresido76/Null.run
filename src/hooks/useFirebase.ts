@@ -48,6 +48,7 @@ export function useFirebase() {
   // Phone auth flow state
   const [confirmation, setConfirmation] = useState<ConfirmationResult | null>(null);
   const recaptchaRef = useRef<RecaptchaVerifier | null>(null);
+  const leaderboardUnsubsRef = useRef<(() => void)[]>([]);
 
   const serverNow = () => Date.now() + serverOffset;
 
@@ -70,9 +71,16 @@ export function useFirebase() {
 
         // Subscribe leaderboard
         subscribeLeaderboard();
+      } else {
+        leaderboardUnsubsRef.current.forEach(unsub => unsub());
+        leaderboardUnsubsRef.current = [];
       }
     });
-    return unsub;
+    return () => {
+      unsub();
+      leaderboardUnsubsRef.current.forEach(cleanup => cleanup());
+      leaderboardUnsubsRef.current = [];
+    };
   }, []);
 
   // ── Phone auth helpers ────────────────────────────────────────
@@ -123,16 +131,19 @@ export function useFirebase() {
 
   // ── Leaderboard subscription ──────────────────────────────────
   function subscribeLeaderboard() {
+    leaderboardUnsubsRef.current.forEach(cleanup => cleanup());
     const lb = collection(db, 'leaderboard');
-    onSnapshot(query(lb, orderBy('totalChills','desc'), limit(50)), snap => {
-      lbData.chills = snap.docs.map((d,i) => ({ rank: i+1, uid: d.id, ...d.data() } as LeaderboardEntry));
-    });
-    onSnapshot(query(lb, orderBy('diamonds','desc'), limit(50)), snap => {
-      lbData.diamonds = snap.docs.map((d,i) => ({ rank: i+1, uid: d.id, ...d.data() } as LeaderboardEntry));
-    });
-    onSnapshot(query(lb, orderBy('achCount','desc'), limit(50)), snap => {
-      lbData.ach = snap.docs.map((d,i) => ({ rank: i+1, uid: d.id, ...d.data() } as LeaderboardEntry));
-    });
+    leaderboardUnsubsRef.current = [
+      onSnapshot(query(lb, orderBy('totalChills','desc'), limit(50)), snap => {
+        lbData.chills = snap.docs.map((d,i) => ({ rank: i+1, uid: d.id, ...d.data() } as LeaderboardEntry));
+      }),
+      onSnapshot(query(lb, orderBy('diamonds','desc'), limit(50)), snap => {
+        lbData.diamonds = snap.docs.map((d,i) => ({ rank: i+1, uid: d.id, ...d.data() } as LeaderboardEntry));
+      }),
+      onSnapshot(query(lb, orderBy('achCount','desc'), limit(50)), snap => {
+        lbData.ach = snap.docs.map((d,i) => ({ rank: i+1, uid: d.id, ...d.data() } as LeaderboardEntry));
+      }),
+    ];
   }
 
   // ── Gifts ─────────────────────────────────────────────────────
