@@ -9,12 +9,26 @@ export function loadGame(): { state: GameState; offlineChills: number } {
     if (!raw) return { state: defaultGameState(), offlineChills: 0 };
 
     const saved = JSON.parse(raw) as Partial<GameState>;
-    // Merge saved over defaults so new fields always exist
-    const merged: GameState = { ...defaultGameState(), ...saved };
-    // Nested merges
-    merged.settings  = { ...defaultGameState().settings,  ...(saved.settings  ?? {}) };
-    merged.producers = { ...defaultGameState().producers,  ...(saved.producers ?? {}) };
-    merged.hqRooms   = { ...defaultGameState().hqRooms,    ...(saved.hqRooms   ?? {}) };
+    if (!saved || typeof saved !== 'object' || Array.isArray(saved)) {
+      return { state: defaultGameState(), offlineChills: 0 };
+    }
+
+    const defaults = defaultGameState();
+    // Merge saved over defaults so new fields always exist.
+    const merged: GameState = { ...defaults, ...saved };
+    // Nested merges prevent partial or older saves from replacing whole collections.
+    merged.settings  = { ...defaults.settings,  ...(saved.settings  ?? {}) };
+    merged.producers = { ...defaults.producers, ...(saved.producers ?? {}) };
+    merged.hqRooms   = { ...defaults.hqRooms,    ...(saved.hqRooms   ?? {}) };
+    merged.upgrades = { ...defaults.upgrades, ...(saved.upgrades ?? {}) };
+    merged.achievements = { ...defaults.achievements, ...(saved.achievements ?? {}) };
+    merged.artefacts = { ...defaults.artefacts, ...(saved.artefacts ?? {}) };
+    merged.ownedNfts = Array.isArray(saved.ownedNfts) ? saved.ownedNfts : defaults.ownedNfts;
+    merged.stakes = Array.isArray(saved.stakes) ? saved.stakes : defaults.stakes;
+    merged.diamondStakes = Array.isArray(saved.diamondStakes) ? saved.diamondStakes : defaults.diamondStakes;
+    merged.lastSave = typeof saved.lastSave === 'number' && Number.isFinite(saved.lastSave)
+      ? saved.lastSave
+      : Date.now();
 
     const offlineChills = calcOfflineChills(merged);
     if (offlineChills > 0 && merged.settings.offlineProgress) {
